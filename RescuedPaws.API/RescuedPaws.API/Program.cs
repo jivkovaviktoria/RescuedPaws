@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using RescuedPaws.Data;
 using RescuedPaws.API.Configuration;
+using RescuedPaws.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace RescuedPaws.API
 {
@@ -11,9 +15,13 @@ namespace RescuedPaws.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+            builder.Services.AddAuthorizationBuilder();
+
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<RescuedPawsDbContext>().AddApiEndpoints();
 
             builder.ConfigureMSSQLDatabase();
 
@@ -22,6 +30,9 @@ namespace RescuedPaws.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.MapGroup("/authentication").MapIdentityApi<User>();
+            app.MapGet("/", (ClaimsPrincipal user) => $"Hello {user.Identity!.Name}").RequireAuthorization();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
