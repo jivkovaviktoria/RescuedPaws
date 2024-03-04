@@ -33,7 +33,7 @@
       <!-- Logo -->
       <a
         class="mb-2 ml-2 mr-5 mt-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-        href="#">
+        routerLink="/">
         <img
           src="../../../../assets/images/homepage/clean-logo.png"
           style="height: 30px"
@@ -48,7 +48,7 @@
           <!-- Dashboard link -->
           <a
             class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
-            href="#"
+            routerLink="/home"
             data-te-nav-link-ref
             >{{'links.home' | rpTranslate:'navigation':selectedLanguage}}</a
           >
@@ -57,7 +57,6 @@
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
           <a
             class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="#"
             data-te-nav-link-ref
             >{{'links.adopt' | rpTranslate:'navigation':selectedLanguage}}</a
           >
@@ -66,7 +65,6 @@
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
           <a
             class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="#"
             data-te-nav-link-ref
             >{{'links.about-us' | rpTranslate:'navigation':selectedLanguage}}</a
           >
@@ -76,11 +74,22 @@
 
     <!-- Right elements -->
     <div class="relative flex items-center">
+        <ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
+            data-te-navbar-nav-ref>
+                <li class="mr-3 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                <!-- Dashboard link -->
+                    <a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
+                       routerLink="/register"
+                       data-te-nav-link-ref>
+                        {{'links.sign-up' | rpTranslate:'navigation':selectedLanguage}}
+                    </a>
+                </li>
+        </ul>
       <!-- Cart Icon -->
       <a
         class="mr-4 text-neutral-600 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-        href="#">
-        <span class="[&>svg]:w-5" (click)="changeLanguage()">
+        >
+        <span class="[&>svg]:w-5 cursor-pointer" (click)="changeLanguage()">
             <img *ngIf="selectedLanguage === 'bg'" src ="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg" class="h-4 w-5"/>
             <img *ngIf="selectedLanguage === 'en'" src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" class="h-4 w-5"/>
         </span>
@@ -94,7 +103,6 @@
         <!-- First dropdown trigger -->
         <a
           class="hidden-arrow mr-4 flex items-center text-neutral-600 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-          href="#"
           id="dropdownMenuButton1"
           role="button"
           data-te-dropdown-toggle-ref
@@ -127,7 +135,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Action</a
             >
@@ -135,7 +142,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Another action</a
             >
@@ -143,7 +149,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Something else here</a
             >
@@ -159,7 +164,6 @@
         <!-- Second dropdown trigger -->
         <a
           class="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
-          href="#"
           id="dropdownMenuButton2"
           role="button"
           data-te-dropdown-toggle-ref
@@ -181,7 +185,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Action</a
             >
@@ -189,7 +192,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Another action</a
             >
@@ -197,7 +199,6 @@
           <li>
             <a
               class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-              href="#"
               data-te-dropdown-item-ref
               >Something else here</a
             >

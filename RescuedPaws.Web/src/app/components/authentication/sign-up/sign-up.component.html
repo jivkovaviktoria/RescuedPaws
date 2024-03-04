@@ -1,34 +1,48 @@
 <div class="bg-grey-lighter min-h-screen flex flex-col">
     <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-            <h1 class="mb-8 text-3xl text-center">{{'sign-up.display-name' | rpTranslate:'authentication':selectedLanguage}}</h1>
-            <input 
-                type="text"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="fullname"
+        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full" [formGroup]="form">
+            <h1 class="mb-8 text-3xl text-center">
+                {{'sign-up.display-name' | rpTranslate:'authentication':selectedLanguage}}
+            </h1>
+            <div *ngIf="form.get('usernameControl')?.errors?.['required'] && form.get('usernameControl')?.touched"
+                class="text-red-500">
+                {{'validation.required-username' | rpTranslate:'authentication':selectedLanguage}}
+            </div>
+            <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" name="fullname"
+                formControlName="usernameControl"
                 placeholder="{{'sign-up.username' | rpTranslate:'authentication':selectedLanguage}}" />
-
-            <input 
-                type="text"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="email"
+            <div *ngIf="form.get('emailControl')?.errors?.['required'] && form.get('emailControl')?.touched"
+                  class="text-red-500">
+                  {{'validation.required-email' | rpTranslate:'authentication':selectedLanguage}}
+            </div>
+            <input type="text" class="block border border-grey-light w-full p-3 rounded mb-4" name="email"
+                formControlName="emailControl"
                 placeholder="{{'sign-up.email' | rpTranslate:'authentication':selectedLanguage}}" />
 
-            <input 
-                type="password"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="password"
+            <div *ngIf="form.get('passwordControl')?.errors?.['required'] && form.get('passwordControl')?.touched"
+                  class="text-red-500">
+                  {{'validation.required-password' | rpTranslate:'authentication':selectedLanguage}}
+            </div>
+            <input type="password" class="block border border-grey-light w-full p-3 rounded mb-4" name="password"
+                formControlName="passwordControl"
                 placeholder="{{'sign-up.password' | rpTranslate:'authentication':selectedLanguage}}" />
-            <input 
-                type="password"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="confirm_password"
+
+            <div *ngIf="form.get('confirmPasswordControl')?.errors?.['required'] && form.get('confirmPasswordControl')?.touched"
+                  class="text-red-500">
+                  {{'validation.required-confirm-password' | rpTranslate:'authentication':selectedLanguage}}
+            </div>
+            <input type="password" class="block border border-grey-light w-full p-3 rounded mb-4"
+                name="confirm_password" formControlName="confirmPasswordControl"
                 placeholder="{{'sign-up.confirm-password' | rpTranslate:'authentication':selectedLanguage}}" />
 
-            <button
-                type="submit"
-                class="w-full text-center py-3 rounded bg-[#6699CC] hover:bg-[#4A82BA] text-white hover:bg-green-dark focus:outline-none my-1"
-            >{{'sign-up.create-account' | rpTranslate:'authentication':selectedLanguage}}</button>
+            <div *ngIf="form.errors?.['passwordMismatch'] && form.get('passwordControl')?.touched && form.get('confirmPasswordControl')?.touched"
+                  class="text-red-500">
+                  
+                  {{'validation.password-missmatch' | rpTranslate:'authentication':selectedLanguage}}
+            </div>
+            <button type="submit" (click)="register()"
+                class="w-full text-center py-3 rounded bg-[#6699CC] hover:bg-[#4A82BA] text-white hover:bg-green-dark focus:outline-none my-1">{{'sign-up.create-account'
+                | rpTranslate:'authentication':selectedLanguage}}</button>
 
             <div class="text-center text-sm text-grey-dark mt-4">
                 {{'sign-up.agree-with' | rpTranslate:'authentication':selectedLanguage}}
@@ -43,8 +57,8 @@
 
         <div class="text-grey-dark mt-6">
             {{'sign-up.already-user' | rpTranslate:'authentication':selectedLanguage}}
-            <a class="no-underline border-b border-blue text-[#6699CC] cursor-pointer"
-               (click)="signIn()">
+            <a class="no-underline border-b border-blue text-[#6699CC] cursor-pointer" (click)="signIn()"
+                routerLink="/login">
                 {{'sign-up.sign-in' | rpTranslate:'authentication':selectedLanguage}}
             </a>.
         </div>

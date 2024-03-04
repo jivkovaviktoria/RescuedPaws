@@ -29,7 +29,19 @@ namespace RescuedPaws.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:5000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
+            app.UseCors();
 
             app.MapGroup("/authentication").MapIdentityApi<User>();
             app.MapGet("/", (ClaimsPrincipal user) => $"Hello {user.Identity!.Name}").RequireAuthorization();
@@ -47,6 +59,7 @@ namespace RescuedPaws.API
 
 
             app.MapControllers();
+
 
             app.Run();
         }

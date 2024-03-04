@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LanguageService } from 'src/app/services/language.service';
+import { LanguageConstants } from 'src/app/utilities/constants/common/language.constants';
 
 @Component({
   selector: 'rp-layout',
@@ -7,26 +9,30 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class RpLayoutComponent implements OnInit{
 
-  public selectedLanguage: string = 'bg';
+  public selectedLanguage: string = LanguageConstants.default;
 
   @Output()
   public onLanguageSelect: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {
+  private languageService: LanguageService;
+
+  constructor(languageService: LanguageService) {
+    this.languageService = languageService;
   }
 
   ngOnInit(): void {
-    this.selectedLanguage = 'bg';
+    this.selectedLanguage = LanguageConstants.default;
   }
 
   public changeLanguage(): void {
-    if(this.selectedLanguage === 'bg') {
-      this.selectedLanguage = 'en';
+    if(this.selectedLanguage === LanguageConstants.default) {
+      this.selectedLanguage = LanguageConstants.english;
     }
     else{
-      this.selectedLanguage = 'bg';
+      this.selectedLanguage = LanguageConstants.default;
     } 
 
+    this.languageService.changeLanguage(this.selectedLanguage);
     this.onLanguageSelect.emit(this.selectedLanguage);
   }
 }

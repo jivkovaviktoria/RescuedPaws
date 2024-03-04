@@ -1,20 +1,23 @@
 <div class="bg-grey-lighter min-h-screen flex flex-col">
     <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full" [formGroup]="form">
             <h1 class="mb-8 text-3xl text-center">{{'sign-up.sign-in' | rpTranslate:'authentication':selectedLanguage}}</h1>
             <input 
                 type="text"
                 class="block border border-grey-light w-full p-3 rounded mb-4"
                 name="fullname"
+                formControlName="emailControl"
                 placeholder="{{'sign-up.username' | rpTranslate:'authentication':selectedLanguage}}" />
 
             <input 
                 type="password"
                 class="block border border-grey-light w-full p-3 rounded mb-4"
                 name="password"
+                formControlName="passwordControl"
                 placeholder="{{'sign-up.password' | rpTranslate:'authentication':selectedLanguage}}" />
             <button
                 type="submit"
+                (click)="login()"
                 class="w-full text-center py-3 rounded bg-[#6699CC] hover:bg-[#4A82BA] text-white hover:bg-green-dark focus:outline-none my-1"
             >{{'sign-up.sign-in' | rpTranslate:'authentication':selectedLanguage}}</button>
         </div>
@@ -22,9 +25,10 @@
         <div class="text-grey-dark mt-6">
             {{'sign-up.no-account' | rpTranslate:'authentication':selectedLanguage}}
             <a class="no-underline border-b border-blue text-[#6699CC] cursor-pointer"
-               (click)="signUp()">
+               (click)="signUp()"
+               routerLink="/register">
                 {{'sign-up.sign-up' | rpTranslate:'authentication':selectedLanguage}}
             </a>.
         </div>
-    </div>
+    </div>e]
 </div>

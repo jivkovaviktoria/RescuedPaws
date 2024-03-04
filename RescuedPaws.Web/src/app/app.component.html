@@ -1,3 +1,4 @@
 <rp-layout (onLanguageSelect)="selectLanguage($event)"></rp-layout>
-<sign-up *ngIf="signUpSelected" [selectedLanguage]="selectedLanguage" (onSignInClick)="changeForm()"></sign-up>
-<sign-in *ngIf="signInSelected" [selectedLanguage]="selectedLanguage" (onSignUpClick)="selectSignUp()" ></sign-in>
+<router-outlet></router-outlet>
+<!-- <sign-up *ngIf="signUpSelected" [selectedLanguage]="selectedLanguage" (onSignInClick)="changeForm()"></sign-up>
+<sign-in *ngIf="signInSelected" [selectedLanguage]="selectedLanguage" (onSignUpClick)="selectSignUp()" ></sign-in> -->
