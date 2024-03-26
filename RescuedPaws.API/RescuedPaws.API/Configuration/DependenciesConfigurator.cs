@@ -1,5 +1,9 @@
 ﻿using RescuedPaws.Data;
 using Microsoft.EntityFrameworkCore;
+using RescuedPaws.Core.Services.Common;
+using RescuedPaws.Core.Contracts.Common;
+using RescuedPaws.Core.Contracts.Administration;
+using RescuedPaws.Core.Services.Administration;
 
 namespace RescuedPaws.API.Configuration
 {
@@ -17,6 +21,18 @@ namespace RescuedPaws.API.Configuration
         public static void ConfigureMSSQLDatabase(this WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<RescuedPawsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+        }
+
+        /// <summary>
+        /// Configures additional services for the application.
+        /// This method is used to add scoped services to the application's service collection.
+        /// Scoped services are created once per client request.
+        /// </summary>
+        /// <param name="builder">The WebApplicationBuilder instance used to configure the application's services.</param>
+        public static void ConfigureServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
+            builder.Services.AddScoped<IStatisticsService, StatisticsService>();
         }
     }
 }

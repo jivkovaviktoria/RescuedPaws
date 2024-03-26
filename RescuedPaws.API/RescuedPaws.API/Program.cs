@@ -6,6 +6,9 @@ using RescuedPaws.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using RescuedPaws.Core.Services.Common;
+using IAuthorizationService = RescuedPaws.Core.Contracts.Common.IAuthorizationService;
 
 namespace RescuedPaws.API
 {
@@ -19,11 +22,14 @@ namespace RescuedPaws.API
             builder.Services.AddAuthorizationBuilder();
 
             // Add services to the container.
+            builder.ConfigureMSSQLDatabase();
+            builder.ConfigureServices();
 
             builder.Services.AddControllers();
+
+            builder.ConfigureServices();
             builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<RescuedPawsDbContext>().AddApiEndpoints();
 
-            builder.ConfigureMSSQLDatabase();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

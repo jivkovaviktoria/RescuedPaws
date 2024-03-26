@@ -33,15 +33,13 @@ export class SignInComponent extends BaseComponent implements OnInit {
     this.onSignUpClick.emit();
   }
 
-  public login(): void {
-    console.log(this.form);
-    
+  public async login(): Promise<void> {
     const authRequest = {
       email: this.form.get('emailControl')?.value,
       password: this.form.get('passwordControl')?.value
     }
 
-    this.authService.login(authRequest);
+    await this.authService.login(authRequest);
   }
 
   private buildForm(): void {

@@ -1,3 +1,4 @@
+
 <nav
   class="flex-no-wrap relative flex w-full items-center justify-between bg-[#FBFBFB] py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-3">
   <div class="flex w-full flex-wrap items-center justify-between px-3">
@@ -31,9 +32,12 @@
       id="navbarSupportedContent1"
       data-te-collapse-item>
       <!-- Logo -->
+      <button (click)="toggleSidebar($event)">Nav</button>
       <a
         class="mb-2 ml-2 mr-5 mt-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-        routerLink="/">
+        routerLink="/"
+        >
+        
         <img
           src="../../../../assets/images/homepage/clean-logo.png"
           style="height: 30px"
@@ -55,9 +59,9 @@
         </li>
         <!-- Adopt Me link -->
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <a
-            class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            data-te-nav-link-ref
+          <a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+             routerLink="/adopt"
+             data-te-nav-link-ref
             >{{'links.adopt' | rpTranslate:'navigation':selectedLanguage}}</a
           >
         </li>
@@ -73,11 +77,12 @@
     </div>
 
     <!-- Right elements -->
-    <div class="relative flex items-center">
+    <div class="relative flex items-center gap-2">
         <ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
             data-te-navbar-nav-ref>
-                <li class="mr-3 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                <li *ngIf="isLoggedIn() === false" class="mr-3 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
                 <!-- Dashboard link -->
+                    
                     <a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
                        routerLink="/register"
                        data-te-nav-link-ref>
@@ -96,10 +101,10 @@
       </a>
 
       <!-- Container with two dropdown menus -->
-      <div
-        class="relative"
-        data-te-dropdown-ref
-        data-te-dropdown-alignment="end">
+      <div *ngIf="isLoggedIn()"
+            class="relative"
+            data-te-dropdown-ref
+            data-te-dropdown-alignment="end">
         <!-- First dropdown trigger -->
         <a
           class="hidden-arrow mr-4 flex items-center text-neutral-600 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
@@ -205,6 +210,7 @@
           </li>
         </ul>
       </div>
+      <a *ngIf="isLoggedIn()" class="cursor-pointer" (click)="logout()">{{'links.logout' | rpTranslate:'navigation':selectedLanguage}}</a>
     </div>
   </div>
 </nav>

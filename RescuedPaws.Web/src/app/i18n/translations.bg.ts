@@ -57,7 +57,8 @@ export const translations: Translation = {
                 'home': 'Начало',
                 'adopt': 'Осинови ме',
                 'about-us': 'За нас',
-                'sign-up': ' Регистрация'
+                'sign-up': ' Регистрация',
+                'logout': 'Изход',
             }
         },
         'en': {
@@ -65,7 +66,8 @@ export const translations: Translation = {
                 'home': 'Home',
                 'adopt': 'Adopt Me',
                 'about-us': 'About Us',
-                'sign-up': 'Sign Up'
+                'sign-up': 'Sign Up',
+                'logout': 'Logout'
             }
         }
     },

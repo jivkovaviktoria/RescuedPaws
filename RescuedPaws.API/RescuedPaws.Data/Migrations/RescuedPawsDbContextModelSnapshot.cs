@@ -244,7 +244,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnimalSize");
+                    b.ToTable("AnimalSizes");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.AnimalType", b =>
@@ -275,7 +275,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AnimalType");
+                    b.ToTable("AnimalTypes");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.Event", b =>
@@ -321,7 +321,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasIndex("LocationID");
 
-                    b.ToTable("Event");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.EventUser", b =>
@@ -336,7 +336,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasIndex("EventID");
 
-                    b.ToTable("EventUser");
+                    b.ToTable("EventUsers");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.Image", b =>
@@ -388,7 +388,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasIndex("TownID");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.Post", b =>
@@ -428,7 +428,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.SuccessStory", b =>
@@ -469,7 +469,7 @@ namespace RescuedPaws.Data.Migrations
                     b.HasIndex("AnimalDataID")
                         .IsUnique();
 
-                    b.ToTable("SuccessStory");
+                    b.ToTable("SuccessStories");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.Town", b =>
@@ -484,7 +484,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Town");
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("RescuedPaws.Data.Entities.User", b =>
@@ -580,7 +580,7 @@ namespace RescuedPaws.Data.Migrations
 
                     b.HasIndex("SuccessStoryID");
 
-                    b.ToTable("Video");
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

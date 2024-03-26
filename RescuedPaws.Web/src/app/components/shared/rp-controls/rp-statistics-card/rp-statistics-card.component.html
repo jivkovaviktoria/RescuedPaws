@@ -1,0 +1,8 @@
+<div [style.background-color]="color"
+     [style.width]="width"
+     [style.height]="height">
+    <h1 class="title p-2 shrink grow" [style.color]="titleColor">{{title}}</h1>
+
+    <!-- ng-content placeholder for custom user content -->
+    <ng-content></ng-content>
+</div>

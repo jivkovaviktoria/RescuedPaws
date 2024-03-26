@@ -1,0 +1,23 @@
+::ng-deep mat-drawer-container {
+    background-color: unset !important;
+    height: -webkit-fill-available;
+}
+
+::ng-deep .mat-drawer-inner-container {
+    background-color: #6699CC;
+}
+
+.mat-drawer-header {
+    background-color: #3f6c99;
+    height: 54px;
+}
+
+.mat-drawer-header h3{
+    margin: 0 !important;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+.text {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
