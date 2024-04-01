@@ -33,6 +33,8 @@ namespace RescuedPaws.API.Configuration
         {
             builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+            builder.Services.AddScoped<IUsersService, UsersService>();
+            builder.Services.AddScoped<IRolesService, RolesService>();
         }
     }
 }

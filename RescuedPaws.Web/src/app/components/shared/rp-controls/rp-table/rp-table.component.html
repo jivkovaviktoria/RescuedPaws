@@ -1,0 +1,37 @@
+<div class="flex flex-col border-gray-300 border-[0.25px]">
+    <div class="overflow-x-auto">
+      <div class="inline-block w-full py-2">
+        <div class="overflow-hidden">
+          <table class="min-w-full text-black text-left text-sm font-light text-surface dark:text-white">
+            <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
+              <tr>
+                <th scope="col" class="px-6 py-4" *ngFor="let column of columns">{{ column.header }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
+                  *ngFor="let row of data">
+                <td class="whitespace-nowrap px-6 py-4" *ngFor="let column of columns">
+                  <div class="flex flex-row justify-start align-center">
+                    <p>{{ getPropertyValue(row, column.field) }}</p>
+                  </div>
+                </td>
+                <div #actions class="flex justify-end align-center gap-2 pt-3 pr-5">
+                  <button *ngIf="showViewButton" class="border-[1px] rounded-md p-1">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>
+                  <button *ngIf="showEditButton" class="border-[1px] rounded-md p-1">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button *ngIf="showDeleteButton" class="border-[1px] rounded-md p-1">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

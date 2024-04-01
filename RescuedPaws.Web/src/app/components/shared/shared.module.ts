@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import { RpSidebarComponent } from './rp-controls/rp-sidebar/rp-sidebar.component';
 import { RpStatisticsCardComponent } from './rp-controls/rp-statistics-card/rp-statistics-card.component';
+import { RpTableComponent } from './rp-controls/rp-table/rp-table.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { RpStatisticsCardComponent } from './rp-controls/rp-statistics-card/rp-s
         RpLayoutComponent,
         RpSidebarComponent,
         RpStatisticsCardComponent,
+        RpTableComponent,
     ],
     imports: [
         RpPipesModule,
@@ -31,7 +33,8 @@ import { RpStatisticsCardComponent } from './rp-controls/rp-statistics-card/rp-s
         BaseComponent,
         RpLayoutComponent,
         RpSidebarComponent,
-        RpStatisticsCardComponent
+        RpStatisticsCardComponent,
+        RpTableComponent
     ]
   })
   export class SharedModule { }

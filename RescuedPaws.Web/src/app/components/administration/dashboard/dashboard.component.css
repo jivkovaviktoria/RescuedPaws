@@ -1,0 +1,16 @@
+/* Base styles for cards */
+statistics-card {
+    flex-basis: calc(50% - 10px); /* Adjust based on the gap you want */
+    max-width: calc(50% - 10px); /* Prevents cards from growing beyond 50% */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    margin: 5px; /* Adjust as needed */
+    height: 150px; /* Your fixed height */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 600px) { /* Adjust breakpoint as needed */
+    statistics-card {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}

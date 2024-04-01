@@ -6,6 +6,9 @@ import { HomeComponent } from './components/shared/home/home.component';
 import { ListComponent } from './components/adopt/list/list.component';
 import { AuthGuard } from './guards/permission.guard';
 import { DashboardComponent } from './components/administration/dashboard/dashboard.component';
+import { UsersComponent } from './components/administration/users/users.component';
+import { OrganizationsComponent } from './components/administration/organizations/organizations.component';
+import { RolesComponent } from './components/administration/roles/roles.component';
 
 const routes: Routes = [
   {
@@ -31,21 +34,30 @@ const routes: Routes = [
     component: SignUpComponent,
   },
   {
-    path: 'administration',
-    component: DashboardComponent, // This component would be the layout for admin section
-    //canActivate: [AuthGuard], // Assuming you have a guard for admin routes
-    // children: [
-    //   {
-    //     path: 'users', // Becomes 'administration/users'
-    //     component: 
-    //   },
-    //   // Other admin routes can go here...
-    // ]
+    path: 'administration/users',
+    component: UsersComponent,
+    pathMatch: 'full'
   },
+  {
+    path: 'administration/organizations',
+    component: OrganizationsComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'administration/roles',
+    component: RolesComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'administration',
+    component: DashboardComponent,
+    pathMatch: 'full'
+    //canActivate: [AuthGuard], // Assuming you have a guard for admin routes
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

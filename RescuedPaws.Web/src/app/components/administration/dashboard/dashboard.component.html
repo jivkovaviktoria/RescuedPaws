@@ -1,37 +1,43 @@
 <ul class=" px-10 pt-2 flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
     <li class="me-2">
-        <a aria-current="page" class="inline-block p-4 text-[#6699CC] bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-[#6699CC]">Day</a>
+        <a aria-current="page" class="inline-block p-4 text-[#6699CC] bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-[#6699CC]">
+            {{'tabs.day' | rpTranslate:'dashboard':selectedLanguage}}
+        </a>
     </li>
     <li class="me-2">
-        <a class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Month</a>
+        <a class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+            {{'tabs.month' | rpTranslate:'dashboard':selectedLanguage}}
+        </a>
     </li>
     <li class="me-2">
-        <a class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Year</a>
+        <a class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+            {{'tabs.year' | rpTranslate:'dashboard':selectedLanguage}}
+        </a>
     </li>
 </ul>
 <div class="h-full w-full flex flex-wrap justify-center gap-20 p-5">
     <div class="flex flex-wrap justify-center gap-20 h-[150px]">
-        <rp-statistics-card [color]="'#3f6c99'" [title]="'Users'" [titleColor]="'white'" class="rounded-md h-[150px]">
+        <rp-statistics-card [color]="'#3f6c99'" [title]="'entities.users' | rpTranslate:'common':selectedLanguage" [titleColor]="'white'" class="rounded-md h-[150px]">
             <div class="flex flex-col p-2">
-                <p class="text-white">Count</p>
+                <p class="text-white">{{'stats.count' | rpTranslate:'dashboard':selectedLanguage}}</p>
                 <p class="text-gray-300">{{usersCount}}</p>
             </div>
         </rp-statistics-card>
-        <rp-statistics-card [color]="'#3f6c99'" [title]="'Organizations'" [titleColor]="'white'" class="rounded-md h-[150px]">
+        <rp-statistics-card [color]="'#3f6c99'" [title]="'entities.organizations' | rpTranslate:'common':selectedLanguage" [titleColor]="'white'" class="rounded-md h-[150px]">
             <div class="flex flex-col p-2">
-                <p class="text-white">Count</p>
+                <p class="text-white">{{'stats.count' | rpTranslate:'dashboard':selectedLanguage}}</p>
                 <p class="text-gray-300">{{organizationsCount}}</p>
             </div>
         </rp-statistics-card>
-        <rp-statistics-card [color]="'#3f6c99'" [title]="'Posts'" [titleColor]="'white'" class="rounded-md h-[150px]">
+        <rp-statistics-card [color]="'#3f6c99'" [title]="'entities.posts' | rpTranslate:'common':selectedLanguage" [titleColor]="'white'" class="rounded-md h-[150px]">
             <div class="flex flex-col p-2">
-                <p class="text-white">Count</p>
+                <p class="text-white">{{'stats.count' | rpTranslate:'dashboard':selectedLanguage}}</p>
                 <p class="text-gray-300">{{postsCount}}</p>
             </div>
         </rp-statistics-card>
-        <rp-statistics-card [color]="'#3f6c99'" [title]="'Events'" [titleColor]="'white'" class="rounded-md h-[150px]">
+        <rp-statistics-card [color]="'#3f6c99'" [title]="'entities.events' | rpTranslate:'common':selectedLanguage" [titleColor]="'white'" class="rounded-md h-[150px]">
             <div class="flex flex-col p-2">
-                <p class="text-white">Count</p>
+                <p class="text-white">{{'stats.count' | rpTranslate:'dashboard':selectedLanguage}}</p>
                 <p class="text-gray-300">{{eventsCount}}</p>
             </div>
         </rp-statistics-card>

@@ -59,6 +59,24 @@ export const translations: Translation = {
                 'about-us': 'За нас',
                 'sign-up': ' Регистрация',
                 'logout': 'Изход',
+            },
+            'sidenav': {
+                'user-management': 'УПРАВЛЕНИЕ НА ПОТРЕБИТЕЛИ',
+                'animal-management': 'УПРАВЛЕНИЕ НА ЖИВОТНИ',
+                'content-management': 'УПРАВЛЕНИЕ НА СЪДЪРЖАНИЕТО',
+                'location-services': 'ЛОКАЦИИ',
+                'dashboard': 'Табло',
+                'user-list': 'Потребители',
+                'organization-list': 'Организации',
+                'roles': 'Роли',
+                'animal-types': 'Типове животни',
+                'animal-sizes': 'Размери животни',
+                'posts': 'Публикации',
+                'events': 'Събития',
+                'success-stories': 'Успешни истории',
+                'files': 'Файлове',
+                'towns': 'Градове',
+                'locations': 'Локации'
             }
         },
         'en': {
@@ -67,7 +85,25 @@ export const translations: Translation = {
                 'adopt': 'Adopt Me',
                 'about-us': 'About Us',
                 'sign-up': 'Sign Up',
-                'logout': 'Logout'
+                'logout': 'Logout',
+            },
+            'sidenav': {
+                'user-management': 'USER MANAGEMENT',
+                'animal-management': 'ANIMAL MANAGEMENT',
+                'content-management': 'CONTENT MANAGEMENT',
+                'location-services': 'LOCATIONS',
+                'dashboard': 'Dashboard',
+                'user-list': 'Users',
+                'organization-list': 'Organizations',
+                'roles': 'Roles',
+                'animal-types': 'Animal Types',
+                'animal-sizes': 'Animal Sizes',
+                'posts': 'Posts',
+                'events': 'Events',
+                'success-stories': 'Success Stories',
+                'files': 'Files',
+                'towns': 'Towns',
+                'locations': 'Locations'
             }
         }
     },
@@ -86,10 +122,50 @@ export const translations: Translation = {
             'main-page': {
                 'main-text-first': 'ANIMALS NEED',
                 'main-text-second': 'YOUR HELP',
-                'adopt-now': 'ADOPT NOW',  
+                'adopt-now': 'ADOPT NOW',
                 'secondary-text': 'Together we can make a difference!',
                 'learn-more': 'Learn More About Adopting a Pet',
                 'learn-more-text': 'Are you considering adopting a dog? Be sure to check out our tips on how to adopt a dog and also learn about fostering. And you’ll enjoy our real-life stories about rescue dogs finding their forever homes.'
+            }
+        }
+    },
+    'dashboard': {
+        'bg': {
+            'tabs': {
+                'day': 'Ден',
+                'month': 'Месец',
+                'year': 'Година'
+            },
+            'stats': {
+                'count': 'Брой'
+            }
+        },
+        'en': {
+            'tabs': {
+                'day': 'Day',
+                'month': 'Month',
+                'year': 'Year'
+            },
+            'stats': {
+                'count': 'Count'
+            }
+        }
+    },
+    'common': {
+        'bg': {
+            'entities': {
+                'users': 'Потребители',
+                'posts': 'Публикации',
+                'organizations': 'Организации',
+                'events': 'Събития'
+            }
+        },
+        'en': {
+            'entities': {
+                'users': 'Users',
+                'posts': 'Posts',
+                'organizations': 'Organizations',
+                'events': 'Events'
             }
         }
     }

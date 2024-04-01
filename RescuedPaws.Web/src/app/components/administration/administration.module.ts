@@ -6,22 +6,31 @@ import { RpPipesModule } from "src/app/pipes/rp-pipes.module";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
+import { UsersComponent } from './users/users.component';
+import { ViewUserComponent } from './users/view-user/view-user.component';
+import { OrganizationsComponent } from './organizations/organizations.component';
+import { RolesComponent } from './roles/roles.component';
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        UsersComponent,
+        ViewUserComponent,
+        OrganizationsComponent,
+        RolesComponent
     ],
     imports: [
         RpPipesModule,
         CommonModule,
         RouterModule,
         MatSidenavModule,
-        RouterModule,
         MatIconModule,
         SharedModule
     ],
     exports: [
-        DashboardComponent
+        DashboardComponent,
+        UsersComponent,
+        OrganizationsComponent
     ]
   })
   export class AdministrationModule { }
