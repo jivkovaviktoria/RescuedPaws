@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using RescuedPaws.Core.Services.Common;
-using IAuthorizationService = RescuedPaws.Core.Contracts.Common.IAuthorizationService;
 
 namespace RescuedPaws.API
 {

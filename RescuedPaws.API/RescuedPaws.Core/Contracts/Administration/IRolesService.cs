@@ -9,6 +9,9 @@ namespace RescuedPaws.Core.Contracts.Administration
 {
     public interface IRolesService
     {
-        Task<List<RoleViewModel>> GetRoles();
+        Task<List<RoleProjection>> GetRoles();
+        Task<RoleFormModel> GetRole(string roleId);
+        Task<RoleProjection> AddOrUpdateRole(RoleFormModel model);
+        Task<bool> DeleteRole(string roleId);
     }
 }

@@ -21,11 +21,13 @@ namespace RescuedPaws.Data
         public DbSet<Town> Towns { get; set; }
         public DbSet<SuccessStory> SuccessStories { get; set; }
         public DbSet<Video> Videos { get; set; }
+        public DbSet<identityro> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

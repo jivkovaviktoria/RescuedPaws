@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users.component';
 import { ViewUserComponent } from './users/view-user/view-user.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { RolesComponent } from './roles/roles.component';
+import { ViewRoleComponent } from './roles/view-role/view-role.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { RolesComponent } from './roles/roles.component';
         UsersComponent,
         ViewUserComponent,
         OrganizationsComponent,
-        RolesComponent
+        RolesComponent,
+        ViewRoleComponent
     ],
     imports: [
         RpPipesModule,
@@ -30,7 +32,8 @@ import { RolesComponent } from './roles/roles.component';
     exports: [
         DashboardComponent,
         UsersComponent,
-        OrganizationsComponent
+        OrganizationsComponent,
+        ViewRoleComponent
     ]
   })
   export class AdministrationModule { }

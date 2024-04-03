@@ -1,6 +1,7 @@
 ﻿using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses;
 using RescuedPaws.Core.Models.Common.Requests;
+using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Data;
 using RescuedPaws.Data.Entities;
 using RescuedPaws.Utilities.Enums;

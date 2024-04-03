@@ -32,9 +32,10 @@
       id="navbarSupportedContent1"
       data-te-collapse-item>
       <!-- Logo -->
+      <a (click)="toggleSidebar($event)" class="text-black cursor-pointer"><mat-icon>menu</mat-icon></a>
       <a
-        class="cursor-pointer mb-2 ml-2 mr-5 mt-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-        (click)="toggleSidebar($event)"
+        class="cursor-pointer mb-2 ml-5 mr-5 mt-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
+        routerLink="/"
         >
         
         <img

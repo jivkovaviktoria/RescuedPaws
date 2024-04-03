@@ -31,7 +31,6 @@ namespace RescuedPaws.API.Configuration
         /// <param name="builder">The WebApplicationBuilder instance used to configure the application's services.</param>
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IUsersService, UsersService>();
             builder.Services.AddScoped<IRolesService, RolesService>();

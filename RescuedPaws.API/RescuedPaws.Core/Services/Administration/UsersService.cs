@@ -1,5 +1,6 @@
 ﻿using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses.ViewModels;
+using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Data;
 using System;
 using System.Collections.Generic;

@@ -5,9 +5,7 @@ namespace RescuedPaws.Data.Entities
     public class User : IdentityUser
     {
         public User()
-        {
-
-        }
+        {}
         public User(string email, string username)
         {
             this.Email = email;

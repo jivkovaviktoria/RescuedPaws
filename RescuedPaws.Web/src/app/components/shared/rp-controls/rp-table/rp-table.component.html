@@ -17,7 +17,7 @@
                   </div>
                 </td>
                 <div #actions class="flex justify-end align-center gap-2 pt-3 pr-5">
-                  <button *ngIf="showViewButton" class="border-[1px] rounded-md p-1">
+                  <button *ngIf="showViewButton" class="border-[1px] rounded-md p-1" (click)="openDialog(row)">
                     <mat-icon>remove_red_eye</mat-icon>
                   </button>
                   <button *ngIf="showEditButton" class="border-[1px] rounded-md p-1">

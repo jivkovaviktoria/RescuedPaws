@@ -6,10 +6,23 @@ import { RpPipesModule } from "src/app/pipes/rp-pipes.module";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RpSidebarComponent } from './rp-controls/rp-sidebar/rp-sidebar.component';
 import { RpStatisticsCardComponent } from './rp-controls/rp-statistics-card/rp-statistics-card.component';
 import { RpTableComponent } from './rp-controls/rp-table/rp-table.component';
+import { RpDialogComponent } from './rp-controls/rp-dialog/rp-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogModule,
+} from '@angular/material/dialog';
+import { RpConfirmDeleteComponent } from './rp-controls/rp-dialog/rp-confirm-delete/rp-confirm-delete.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +32,8 @@ import { RpTableComponent } from './rp-controls/rp-table/rp-table.component';
         RpSidebarComponent,
         RpStatisticsCardComponent,
         RpTableComponent,
+        RpDialogComponent,
+        RpConfirmDeleteComponent,
     ],
     imports: [
         RpPipesModule,
@@ -26,7 +41,12 @@ import { RpTableComponent } from './rp-controls/rp-table/rp-table.component';
         RouterModule,
         MatSidenavModule,
         RouterModule,
-        MatIconModule
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatDialogModule
     ],
     exports: [
         HomeComponent,
@@ -36,5 +56,5 @@ import { RpTableComponent } from './rp-controls/rp-table/rp-table.component';
         RpStatisticsCardComponent,
         RpTableComponent
     ]
-  })
-  export class SharedModule { }
+})
+export class SharedModule { }

@@ -24,6 +24,9 @@ namespace RescuedPaws.Utilities.Constants
             public static class Roles
             {
                 public const string GetRoles = "Roles";
+                public const string GetRole = "Role";
+                public const string AddOrUpdateRole = "Role";
+                public const string DeleteRole = "Role";
             }
             
             public static class Statistics

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title class="text-black bg-white">{{title}}</h2>
+<mat-dialog-content class="bg-white">
+    <ng-container *ngComponentOutlet="data.component"></ng-container>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-between flex-row items-center">
+    <button mat-button (click)="onNoClick()" class="cancel-button">Cancel</button>
+    <button mat-button cdkFocusInitial class="save-button">Save</button>
+</mat-dialog-actions>

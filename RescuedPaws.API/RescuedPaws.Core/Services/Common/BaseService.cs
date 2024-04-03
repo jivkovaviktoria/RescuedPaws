@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RescuedPaws.Core.Services
+namespace RescuedPaws.Core.Services.Common
 {
-    public class BaseService
+    public abstract class BaseService
     {
         protected readonly RescuedPawsDbContext _dbContext;
 
-        public BaseService(RescuedPawsDbContext dbContext)
+        protected BaseService(RescuedPawsDbContext dbContext)
         {
-            this._dbContext = dbContext;
+            _dbContext = dbContext;
         }
     }
 }

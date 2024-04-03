@@ -11,6 +11,6 @@ namespace RescuedPaws.Core.Contracts.Common
     public interface IAuditableService<TEntity>
         where TEntity : IAuditableEntity
     {
-        Task<EntityAuditDTO> GetSimpleAudit(Guid id);
+        Task<EntityAuditProjection> GetSimpleAudit(Guid id);
     }
 }

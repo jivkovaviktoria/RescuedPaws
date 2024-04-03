@@ -5,6 +5,10 @@ import { TableRow } from '../../shared/rp-controls/rp-table/interfaces/table-row
 import { LanguageService } from 'src/app/services/language.service';
 import { RolesService } from 'src/app/services/administration/roles.service';
 import { RoleViewModel } from 'src/app/services/response-models/administration/roles/roleViewModel';
+import { RpDialogComponent } from '../../shared/rp-controls/rp-dialog/rp-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewRoleComponent } from './view-role/view-role.component';
+import { DialogService } from 'src/app/services/common/dialog.service';
 
 @Component({
   selector: 'roles',
@@ -16,14 +20,21 @@ export class RolesComponent extends BaseComponent implements OnInit {
   public columnsData!: TableColumn[];
   public rowsData!: TableRow[];
 
+  private readonly _dialog;
+  private readonly _dialogService: DialogService;
   private readonly _rolesService: RolesService;
 
   constructor(
     rolesService: RolesService,
-    languageService: LanguageService
+    dialogService: DialogService,
+    languageService: LanguageService,
+    dialog: MatDialog
   ) {
     super(languageService);
+
+    this._dialogService = dialogService;
     this._rolesService = rolesService;
+    this._dialog = dialog;
   }
 
   public override ngOnInit(): void {
@@ -34,6 +45,17 @@ export class RolesComponent extends BaseComponent implements OnInit {
         this.rowsData = result.map(role => this.transformToTableRow(role));
         this.columnsData = this.createColumnsBasedOnData(result[0]);
       }
+    });
+  }
+
+  openViewDialog(event: any): void {
+    this._dialogService.setData(event);
+
+    this._dialog.open(RpDialogComponent, {
+      height: '75%',
+      width: '50%',
+      panelClass: 'view-dialog',
+      data: {component: ViewRoleComponent, title: 'View role'}
     });
   }
 
