@@ -8,6 +8,7 @@ namespace RescuedPaws.Core.Models.Administration.Responses.Roles
 {
     public class RoleProjection
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public int UsersCount { get; set; }
     }

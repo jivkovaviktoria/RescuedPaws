@@ -48,14 +48,43 @@ export class RolesComponent extends BaseComponent implements OnInit {
     });
   }
 
-  openViewDialog(event: any): void {
+  public openViewDialog(event: any): void {
     this._dialogService.setData(event);
 
     this._dialog.open(RpDialogComponent, {
-      height: '75%',
-      width: '50%',
+      height: '50%',
+      width: '30%',
       panelClass: 'view-dialog',
-      data: {component: ViewRoleComponent, title: 'View role'}
+      data: {component: ViewRoleComponent, title: 'View role', isReadonly: true}
+    });
+  }
+
+  public openEditDialog(event: any): void {
+    this._dialogService.setData(event);
+
+    this._dialog.open(RpDialogComponent, {
+      height: '50%',
+      width: '30%',
+      panelClass: 'view-dialog',
+      data: {component: ViewRoleComponent, title: 'View role', isReadonly: false}
+    });
+  }
+
+  public openAddDialog(): void {
+    this._dialog.open(RpDialogComponent, {
+      height: '50%',
+      width: '30%',
+      panelClass: 'view-dialog',
+      data: {component: ViewRoleComponent, title: 'View role', isReadonly: false}
+    });
+  }
+
+  public openDeleteConfirmationDialog(): void {
+    this._dialog.open(RpDialogComponent, {
+      height: '15%',
+      width: '30%',
+      panelClass: 'view-dialog',
+      data: {title: 'Are you sure you want to delete this role?', isReadonly: false}
     });
   }
 
@@ -69,6 +98,7 @@ export class RolesComponent extends BaseComponent implements OnInit {
 
   private transformToTableRow(role: RoleViewModel): Record<string, any> {
     return {
+      id: role.id,
       name: role.name,
       usersCount: role.usersCount
     };

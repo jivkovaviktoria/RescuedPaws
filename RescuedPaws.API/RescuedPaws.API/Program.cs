@@ -4,7 +4,6 @@ using RescuedPaws.Data;
 using RescuedPaws.API.Configuration;
 using RescuedPaws.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using RescuedPaws.Core.Services.Common;

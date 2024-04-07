@@ -2,6 +2,29 @@
     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
         Name:
     </label>
-    <input type="text" id="name" name="name" placeholder="Enter name" disabled="true" [value]="model['name']"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    <input type="text" id="name" name="name" placeholder="Enter name" [disabled]="isReadonly" [value]="model['name']"
+           class="shadow appearance-none border rounded w-full py-2 mb-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    <h1 class="text-black text-center">Assigned Users</h1>
+    <div class="mt-4 overflow-hidden" style="max-height: 300px;">
+        <table class="w-full text-left border-collapse text-black">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b-2"></th>
+                    <th class="py-2 px-4 border-b-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of role?.assignedUsers">
+                    <td class="py-2 px-4 border-b">{{user.displayName}}</td>
+                    <td class="py-2 px-4 border-b">
+                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none" [disabled]="isReadonly" [ngClass]="{'text-red-500': !isReadonly, 'hover:text-red-700': !isReadonly}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-9a1 1 0 01-1 1H8a1 1 0 010-2h4a1 1 0 011 1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

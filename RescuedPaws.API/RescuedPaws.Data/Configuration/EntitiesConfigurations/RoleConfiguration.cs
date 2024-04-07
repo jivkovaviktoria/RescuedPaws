@@ -13,7 +13,7 @@ namespace RescuedPaws.Data.Configuration.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasNoKey();
         }
     }
 }

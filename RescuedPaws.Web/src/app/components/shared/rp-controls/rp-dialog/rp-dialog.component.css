@@ -22,3 +22,7 @@ button {
     border-radius: 5px;
     color: white !important;
 }
+
+::ng-deep .mdc-dialog__content {
+    overflow: hidden;
+}

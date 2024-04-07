@@ -10,7 +10,6 @@ using RescuedPaws.DomainModels.Common;
 using RescuedPaws.Utilities.Enums;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,15 +24,18 @@ namespace RescuedPaws.Core.Services.Administration
 
         public async Task<List<RoleProjection>> GetRoles()
         {
-            return (from dbRole in _dbContext.Roles
+            var res = (from dbRole in _dbContext.Roles
                     select new RoleProjection
                     {
-                        Name = dbRole.Name,
+                        Id = dbRole.Id,
+                        Name = dbRole.Name ?? string.Empty,
                         UsersCount = (from dbUser in _dbContext.Users
                                       join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
                                       where dbUserRole.RoleId == dbRole.Id
                                       select dbUser).Count()
                     }).ToList();
+
+            return res;
         }
 
         public async Task<RoleFormModel> GetRole(string roleId)
@@ -63,13 +65,12 @@ namespace RescuedPaws.Core.Services.Administration
 
         public async Task<RoleProjection> AddOrUpdateRole(RoleFormModel model)
         {
-            var newRole = new Role
+            var newRole = new IdentityRole
             {
-                Id = Guid.NewGuid().ToString(),
                 Name = model.Name
             };
 
-            await this._dbContext.Roles.AddAsync(newRole);
+            //await this._dbContext.Roles.AddAsync(newRole);
             await this._dbContext.SaveChangesAsync();
 
             foreach(var user in model.AssignedUsers)

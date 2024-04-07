@@ -1,3 +1,9 @@
+<div class="flex flex-row justify-end items-center my-2">
+  <button *ngIf="showAddButton" class="border-[1px] rounded-md p-1 text-black flex justify-center items-center"
+          (click)="onAddClick.emit()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 <div class="flex flex-col border-gray-300 border-[0.25px]">
     <div class="overflow-x-auto">
       <div class="inline-block w-full py-2">
@@ -12,18 +18,18 @@
               <tr class="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
                   *ngFor="let row of data">
                 <td class="whitespace-nowrap px-6 py-4" *ngFor="let column of columns">
-                  <div class="flex flex-row justify-start align-center">
+                  <div class="flex flex-row justify-start items-center">
                     <p>{{ getPropertyValue(row, column.field) }}</p>
                   </div>
                 </td>
-                <div #actions class="flex justify-end align-center gap-2 pt-3 pr-5">
-                  <button *ngIf="showViewButton" class="border-[1px] rounded-md p-1" (click)="openDialog(row)">
+                <div #actions class="flex justify-end items-center gap-2 pt-3 pr-5">
+                  <button *ngIf="showViewButton" class="border-[1px] rounded-md p-1 flex justify-center items-center" (click)="openViewDialog(row)">
                     <mat-icon>remove_red_eye</mat-icon>
                   </button>
-                  <button *ngIf="showEditButton" class="border-[1px] rounded-md p-1">
+                  <button *ngIf="showEditButton" class="border-[1px] rounded-md p-1 flex justify-center items-center" (click)="openEditDialog(row)">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button *ngIf="showDeleteButton" class="border-[1px] rounded-md p-1">
+                  <button *ngIf="showDeleteButton" class="border-[1px] rounded-md p-1 flex justify-center items-center" (click)="openDeleteConfirmationDialog(row)"> 
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>

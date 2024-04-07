@@ -9,6 +9,7 @@ export const ApiEndpoints = {
         'postsCount': '/Administration/PostsCount',
         'eventsCount': '/Administration/EventsCount',
         'getUsers': '/Administration/Users',
-        'getRoles': '/Administration/Roles'
+        'getRoles': '/Administration/Roles',
+        'getRole': '/Administration/Role'
     }
 }

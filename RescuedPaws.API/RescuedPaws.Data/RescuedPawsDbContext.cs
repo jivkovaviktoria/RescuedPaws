@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace RescuedPaws.Data
 {
-    public class RescuedPawsDbContext : IdentityDbContext<User>
+    public class RescuedPawsDbContext : IdentityDbContext<User, Role, string>
     {
         public RescuedPawsDbContext(DbContextOptions<RescuedPawsDbContext> options) : base(options)
         { }
@@ -21,13 +21,11 @@ namespace RescuedPaws.Data
         public DbSet<Town> Towns { get; set; }
         public DbSet<SuccessStory> SuccessStories { get; set; }
         public DbSet<Video> Videos { get; set; }
-        public DbSet<identityro> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

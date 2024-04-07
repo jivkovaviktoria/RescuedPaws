@@ -1,8 +1,12 @@
-<h2 mat-dialog-title class="text-black bg-white">{{title}}</h2>
-<mat-dialog-content class="bg-white">
-    <ng-container *ngComponentOutlet="data.component"></ng-container>
-</mat-dialog-content>
-<mat-dialog-actions class="flex justify-between flex-row items-center">
-    <button mat-button (click)="onNoClick()" class="cancel-button">Cancel</button>
-    <button mat-button cdkFocusInitial class="save-button">Save</button>
-</mat-dialog-actions>
+<div class="flex flex-col h-full pb-3 ">
+    <h2 class="text-black bg-white text-center pt-3">{{title}}</h2>
+
+    <mat-dialog-content class="bg-white overflow-y-hidden flex-grow">
+        <ng-container *ngComponentOutlet="data.component"></ng-container>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="flex justify-between flex-row items-center p-5">
+        <button mat-button (click)="onNoClick()" class="cancel-button">Cancel</button>
+        <button mat-button cdkFocusInitial class="save-button">Save</button>
+    </mat-dialog-actions>
+</div>

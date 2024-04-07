@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using RescuedPaws.Data.Contracts.Entities;
 using System;
 using System.Collections.Generic;
