@@ -16,7 +16,7 @@ export class RpDialogComponent {
     this.title = data.title;
   }
 
-  onNoClick(): void {
+  protected onNoClick(): void {
     this.dialogRef.close();
   }
 }

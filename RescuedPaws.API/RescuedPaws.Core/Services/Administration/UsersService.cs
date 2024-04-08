@@ -1,7 +1,9 @@
-﻿using RescuedPaws.Core.Contracts.Administration;
+﻿using Microsoft.EntityFrameworkCore;
+using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses.ViewModels;
 using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Data;
+using RescuedPaws.Utilities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,9 @@ namespace RescuedPaws.Core.Services.Administration
         public async Task<List<UserViewModel>> GetUsers()
         {
             return (from dbUser in _dbContext.Users
-                    //where the role is User
+                    join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
+                    join dbRole in _dbContext.Roles on dbUserRole.RoleId equals dbRole.Id
+                    where dbRole.Name == nameof(UserRoles.User)
                     select new UserViewModel
                     {
                         Username = dbUser.UserName,
@@ -29,7 +33,9 @@ namespace RescuedPaws.Core.Services.Administration
         public async Task<List<UserViewModel>> GetOrganizations()
         {
             return (from dbOrganization in _dbContext.Users
-                    // where the role is organization
+                    join dbUserRole in _dbContext.UserRoles on dbOrganization.Id equals dbUserRole.UserId
+                    join dbRole in _dbContext.Roles on dbUserRole.RoleId equals dbRole.Id
+                    where dbRole.Name == nameof(UserRoles.Organization)
                     select new UserViewModel
                     {
                         Username = dbOrganization.UserName,

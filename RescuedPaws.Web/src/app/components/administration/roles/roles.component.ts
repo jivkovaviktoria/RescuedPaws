@@ -9,6 +9,8 @@ import { RpDialogComponent } from '../../shared/rp-controls/rp-dialog/rp-dialog.
 import { MatDialog } from '@angular/material/dialog';
 import { ViewRoleComponent } from './view-role/view-role.component';
 import { DialogService } from 'src/app/services/common/dialog.service';
+import { Nomenclature } from 'src/app/services/response-models/common/nomenclature';
+import { NomenclaturesService } from 'src/app/services/common/nomenclatures.service';
 
 @Component({
   selector: 'roles',
@@ -20,20 +22,25 @@ export class RolesComponent extends BaseComponent implements OnInit {
   public columnsData!: TableColumn[];
   public rowsData!: TableRow[];
 
+  private usersNomenclatures: Nomenclature<string>[] = [];
+
   private readonly _dialog;
   private readonly _dialogService: DialogService;
   private readonly _rolesService: RolesService;
+  private readonly _nomenclaturesService: NomenclaturesService;
 
   constructor(
     rolesService: RolesService,
     dialogService: DialogService,
     languageService: LanguageService,
+    nomenclaturesService: NomenclaturesService,
     dialog: MatDialog
   ) {
     super(languageService);
 
     this._dialogService = dialogService;
     this._rolesService = rolesService;
+    this._nomenclaturesService = nomenclaturesService;
     this._dialog = dialog;
   }
 
@@ -52,21 +59,46 @@ export class RolesComponent extends BaseComponent implements OnInit {
     this._dialogService.setData(event);
 
     this._dialog.open(RpDialogComponent, {
-      height: '50%',
+      height: '60%',
       width: '30%',
       panelClass: 'view-dialog',
-      data: {component: ViewRoleComponent, title: 'View role', isReadonly: true}
+      data: { component: ViewRoleComponent, title: 'View role', isReadonly: true }
     });
   }
 
   public openEditDialog(event: any): void {
     this._dialogService.setData(event);
 
-    this._dialog.open(RpDialogComponent, {
-      height: '50%',
-      width: '30%',
-      panelClass: 'view-dialog',
-      data: {component: ViewRoleComponent, title: 'View role', isReadonly: false}
+    this._nomenclaturesService.getUsers().subscribe({
+      next: (result: Nomenclature<string>[]) => {
+        this.usersNomenclatures = result;
+
+        const dialogRef = this._dialog.open(RpDialogComponent, {
+          height: '77%',
+          width: '50%',
+          panelClass: 'view-dialog',
+          data: {
+            component: ViewRoleComponent,
+            title: 'View role',
+            isReadonly: false,
+            usersNomenclatures: this.usersNomenclatures
+          }
+        });
+
+        // const ViewRoleComponentInstance  = dialogRef.componentInstance;
+
+        // (ViewRoleComponentInstance.data.component.onUserAssign).subscribe((event) => {
+        //   const roleId = event.roleId;
+        //   const count = event.count;
+
+        //   const role = this.roles.find(r => r.id === roleId);
+
+        //   if(role != null){
+        //     role.usersCount += count;
+
+        //   }
+        // });
+      } 
     });
   }
 
@@ -75,7 +107,7 @@ export class RolesComponent extends BaseComponent implements OnInit {
       height: '50%',
       width: '30%',
       panelClass: 'view-dialog',
-      data: {component: ViewRoleComponent, title: 'View role', isReadonly: false}
+      data: { component: ViewRoleComponent, title: 'View role', isReadonly: false }
     });
   }
 
@@ -84,12 +116,11 @@ export class RolesComponent extends BaseComponent implements OnInit {
       height: '15%',
       width: '30%',
       panelClass: 'view-dialog',
-      data: {title: 'Are you sure you want to delete this role?', isReadonly: false}
+      data: { title: 'Are you sure you want to delete this role?', isReadonly: false }
     });
   }
 
   private createColumnsBasedOnData(data: RoleViewModel): TableColumn[] {
-    // Dynamically create columns based on the keys of the data object
     return Object.keys(data).map(key => ({
       header: this.formatHeader(key),
       field: key
@@ -105,7 +136,6 @@ export class RolesComponent extends BaseComponent implements OnInit {
   }
 
   private formatHeader(key: string): string {
-    // Convert key to a more readable format for headers if necessary
     return key.charAt(0).toUpperCase() + key.slice(1);
   }
 }

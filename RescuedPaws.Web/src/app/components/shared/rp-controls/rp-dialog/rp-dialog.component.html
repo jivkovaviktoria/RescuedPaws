@@ -1,11 +1,17 @@
 <div class="flex flex-col h-full pb-3 ">
-    <h2 class="text-black bg-white text-center pt-3">{{title}}</h2>
+    <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-800 focus:outline-none" (click)="onNoClick()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
+    <h1 class="text-lg text-gray-800 font-bold bg-white text-center pt-3">{{title}}</h1>
 
     <mat-dialog-content class="bg-white overflow-y-hidden flex-grow">
         <ng-container *ngComponentOutlet="data.component"></ng-container>
     </mat-dialog-content>
 
-    <mat-dialog-actions class="flex justify-between flex-row items-center p-5">
+    <mat-dialog-actions *ngIf="!data?.isReadonly" class="flex justify-between flex-row items-center p-5">
         <button mat-button (click)="onNoClick()" class="cancel-button">Cancel</button>
         <button mat-button cdkFocusInitial class="save-button">Save</button>
     </mat-dialog-actions>

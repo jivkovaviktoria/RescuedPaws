@@ -12,8 +12,4 @@
     <ProjectReference Include="..\RescuedPaws.Utilities\RescuedPaws.Utilities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Administration\Requests\" />
-  </ItemGroup>
-
 </Project>

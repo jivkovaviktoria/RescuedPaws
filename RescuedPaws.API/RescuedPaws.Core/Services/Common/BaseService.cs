@@ -1,4 +1,6 @@
 ﻿using RescuedPaws.Data;
+using RescuedPaws.Data.Contracts.Entities;
+using RescuedPaws.Data.Contracts.Repositories;
 using RescuedPaws.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace RescuedPaws.Core.Services.Common
 
         protected BaseService(RescuedPawsDbContext dbContext)
         {
-            _dbContext = dbContext;
+           this._dbContext = dbContext;
         }
     }
 }

@@ -22,7 +22,7 @@ export class RpTableComponent implements AfterViewChecked{
   @Output() public onAddClick: EventEmitter<void> = new EventEmitter<void>();
 
   public ngAfterViewChecked(): void {
-    this.columns = this.columns.filter(x => x.field !== 'id');
+    this.columns = this.columns?.filter(x => x.field !== 'id');
   }
 
   public openViewDialog(data: TableRow): void {

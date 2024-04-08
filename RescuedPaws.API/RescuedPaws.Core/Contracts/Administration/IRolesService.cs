@@ -1,4 +1,5 @@
 ﻿using RescuedPaws.Core.Models.Administration.Responses.Roles;
+using RescuedPaws.Core.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace RescuedPaws.Core.Contracts.Administration
         Task<RoleFormModel> GetRole(string roleId);
         Task<RoleProjection> AddOrUpdateRole(RoleFormModel model);
         Task<bool> DeleteRole(string roleId);
+        Task<Nomenclature<string>> AssignRoleToUser(string roleId, string userId);
     }
 }

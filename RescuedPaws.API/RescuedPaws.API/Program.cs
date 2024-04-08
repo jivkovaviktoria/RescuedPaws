@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using RescuedPaws.Core.Services.Common;
+using Microsoft.AspNetCore.Builder;
 
 namespace RescuedPaws.API
 {
@@ -38,7 +39,7 @@ namespace RescuedPaws.API
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:5000")
+                        builder.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -59,8 +60,8 @@ namespace RescuedPaws.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

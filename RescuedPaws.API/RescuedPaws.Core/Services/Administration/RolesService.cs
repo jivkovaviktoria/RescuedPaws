@@ -48,6 +48,7 @@ namespace RescuedPaws.Core.Services.Administration
             {
                 model = new RoleFormModel
                 {
+                    Id = role.Id,
                     Name = role.Name,
                     AssignedUsers = (from dbUser in _dbContext.Users
                                      join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
@@ -65,12 +66,12 @@ namespace RescuedPaws.Core.Services.Administration
 
         public async Task<RoleProjection> AddOrUpdateRole(RoleFormModel model)
         {
-            var newRole = new IdentityRole
+            var newRole = new Role
             {
                 Name = model.Name
             };
 
-            //await this._dbContext.Roles.AddAsync(newRole);
+            await this._dbContext.Roles.AddAsync(newRole);
             await this._dbContext.SaveChangesAsync();
 
             foreach(var user in model.AssignedUsers)
@@ -105,6 +106,38 @@ namespace RescuedPaws.Core.Services.Administration
             }
 
             return false;
+        }
+
+        public async Task<Nomenclature<string>> AssignRoleToUser(string userId, string roleId)
+        {
+            var user = (from dbUser in _dbContext.Users
+                        where dbUser.Id == userId
+                        select new Nomenclature<string>
+                        {
+                            Id = dbUser.Id,
+                            DisplayName = dbUser.UserName
+                        }).FirstOrDefault();
+
+            if(user != null)
+            {
+                var roleExist = (from dbRole in _dbContext.Roles
+                                 where dbRole.Id == roleId
+                                 select dbRole).Any();
+
+                if(roleExist)
+                {
+                    var userRole = new IdentityUserRole<string>
+                    {
+                        UserId = user.Id,
+                        RoleId = roleId
+                    };
+
+                    await this._dbContext.UserRoles.AddAsync(userRole);
+                    await this._dbContext.SaveChangesAsync();
+                }
+            }
+
+            return user;
         }
     }
 }

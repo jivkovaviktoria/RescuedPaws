@@ -11,6 +11,7 @@ namespace RescuedPaws.Utilities.Constants
         public static class AreaRoutes
         {
             public const string Administration = "Administration";
+            public const string Nomenclatures = "Nomenclatures";
         } 
 
         public static class AdministrationRoutes
@@ -27,6 +28,7 @@ namespace RescuedPaws.Utilities.Constants
                 public const string GetRole = "Role";
                 public const string AddOrUpdateRole = "Role";
                 public const string DeleteRole = "Role";
+                public const string AssignToUser = "AssignToUser";
             }
             
             public static class Statistics
@@ -35,6 +37,11 @@ namespace RescuedPaws.Utilities.Constants
                 public const string PostsCount = "PostsCount";
                 public const string EventsCount = "EventsCount";
             }
+        }
+
+        public static class Nomenclatures
+        {
+            public const string GetUsers = "Users";
         }
     }
 }

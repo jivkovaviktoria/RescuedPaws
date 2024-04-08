@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RescuedPaws.Core.Contracts.Administration;
+using RescuedPaws.Core.Models.Administration.Requests.Roles;
 using RescuedPaws.Core.Models.Administration.Responses.Roles;
+using RescuedPaws.Data.Entities;
 using static RescuedPaws.Utilities.Constants.ApiConstants;
 using static RescuedPaws.Utilities.Constants.ApiConstants.AdministrationRoutes;
 
@@ -11,10 +15,12 @@ namespace RescuedPaws.API.Controllers.Administration
     public class RolesController : ControllerBase
     {
         private readonly IRolesService _rolesService;
+        private readonly UserManager<User> _userManager;
 
-        public RolesController(IRolesService rolesService)
+        public RolesController(IRolesService rolesService, UserManager<User> userManager)
         {
             this._rolesService = rolesService;
+            this._userManager = userManager;
         }
 
         [HttpGet]
@@ -48,6 +54,16 @@ namespace RescuedPaws.API.Controllers.Administration
             var result = await this._rolesService.DeleteRole(roleId);
             
             if(result) return this.Ok(result);
+            return this.NotFound();
+        }
+
+        [HttpPost]
+        [Route(Roles.AssignToUser)]
+        public async Task<IActionResult> AssignToUser([FromBody] UserRoleRequest request)
+        {
+            var result = await this._rolesService.AssignRoleToUser(request.UserId, request.RoleId);
+
+            if (result != null) return this.Ok(result);
             return this.NotFound();
         }
     }

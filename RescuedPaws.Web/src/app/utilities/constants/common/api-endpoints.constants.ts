@@ -10,6 +10,10 @@ export const ApiEndpoints = {
         'eventsCount': '/Administration/EventsCount',
         'getUsers': '/Administration/Users',
         'getRoles': '/Administration/Roles',
-        'getRole': '/Administration/Role'
+        'getRole': '/Administration/Role',
+        'assignToUser': '/Administration/AssignToUser' 
+    },
+    'nomenclatures': {
+        'users': '/Nomenclatures/Users'
     }
 }

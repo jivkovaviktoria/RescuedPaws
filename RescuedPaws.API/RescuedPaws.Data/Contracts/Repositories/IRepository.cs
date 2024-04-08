@@ -13,8 +13,8 @@ namespace RescuedPaws.Data.Contracts.Repositories
     {
         Task<TEntity> GetAsync(IEnumerable<Filter<TEntity>> filters, CancellationToken cancellationToken);
         Task<IEnumerable<TEntity>> GetManyAsync(IEnumerable<Filter<TEntity>> filters, CancellationToken cancellationToken);
-        Task<bool> CreateAsync(TEntity entity, CancellationToken cancellationToken);
-        Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken);
-        Task<bool> DeleteAsync(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<bool> DeleteAsync(TEntity entity, CancellationToken cancellationToken);
     }
 }
