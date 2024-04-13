@@ -11,7 +11,11 @@ export const ApiEndpoints = {
         'getUsers': '/Administration/Users',
         'getRoles': '/Administration/Roles',
         'getRole': '/Administration/Role',
-        'assignToUser': '/Administration/AssignToUser' 
+        'assignToUser': '/Administration/AssignToUser',
+        'getAnimalTypes': '/Administration/AnimalTypes',
+        'getAnimalType': '/Administration/AnimalType',
+        'getAnimalSizes': '/Administration/AnimalSizes',
+        'getAnimalSize': '/Administration/AnimalSize',
     },
     'nomenclatures': {
         'users': '/Nomenclatures/Users'

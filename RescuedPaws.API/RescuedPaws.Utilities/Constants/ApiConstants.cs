@@ -6,14 +6,23 @@ using System.Threading.Tasks;
 
 namespace RescuedPaws.Utilities.Constants
 {
+    /// <summary>
+    /// Constants for the API
+    /// </summary>
     public static class ApiConstants
     {
+        /// <summary>
+        /// Routes for the areas
+        /// </summary>
         public static class AreaRoutes
         {
             public const string Administration = "Administration";
             public const string Nomenclatures = "Nomenclatures";
         } 
 
+        /// <summary>
+        /// Routes for the administration area
+        /// </summary>
         public static class AdministrationRoutes
         {
             public static class Users
@@ -30,7 +39,23 @@ namespace RescuedPaws.Utilities.Constants
                 public const string DeleteRole = "Role";
                 public const string AssignToUser = "AssignToUser";
             }
+
+            public static class AnimalTypes
+            {
+                public const string GetAll = "AnimalTypes";
+                public const string Get = "AnimalType";
+                public const string AddOrUpdate = "AnimalType";
+                public const string Delete = "AnimalType";
+            }
             
+            public static class AnimalSizes
+            {
+                public const string GetAll = "AnimalSizes";
+                public const string Get = "AnimalSize";
+                public const string AddOrUpdate = "AnimalSize";
+                public const string Delete = "AnimalSize";
+            }
+
             public static class Statistics
             {
                 public const string UsersCount = "UsersCount";
@@ -39,6 +64,9 @@ namespace RescuedPaws.Utilities.Constants
             }
         }
 
+        /// <summary>
+        /// Nomenclatures routes
+        /// </summary>
         public static class Nomenclatures
         {
             public const string GetUsers = "Users";

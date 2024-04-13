@@ -4,7 +4,7 @@ import { TableColumn } from '../../shared/rp-controls/rp-table/interfaces/table-
 import { TableRow } from '../../shared/rp-controls/rp-table/interfaces/table-row.interface';
 import { LanguageService } from 'src/app/services/language.service';
 import { RolesService } from 'src/app/services/administration/roles.service';
-import { RoleViewModel } from 'src/app/services/response-models/administration/roles/roleViewModel';
+import { RoleViewModel } from 'src/app/services/response-models/administration/roles/roleProjection';
 import { RpDialogComponent } from '../../shared/rp-controls/rp-dialog/rp-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewRoleComponent } from './view-role/view-role.component';

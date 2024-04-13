@@ -24,18 +24,18 @@ namespace RescuedPaws.Core.Services.Administration
 
         public async Task<List<RoleProjection>> GetRoles()
         {
-            var res = (from dbRole in _dbContext.Roles
-                    select new RoleProjection
-                    {
-                        Id = dbRole.Id,
-                        Name = dbRole.Name ?? string.Empty,
-                        UsersCount = (from dbUser in _dbContext.Users
-                                      join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
-                                      where dbUserRole.RoleId == dbRole.Id
-                                      select dbUser).Count()
-                    }).ToList();
+            var result = (from dbRole in _dbContext.Roles
+                       select new RoleProjection
+                       {
+                           Id = dbRole.Id,
+                           Name = dbRole.Name ?? string.Empty,
+                           UsersCount = (from dbUser in _dbContext.Users
+                                         join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
+                                         where dbUserRole.RoleId == dbRole.Id
+                                         select dbUser).Count()
+                       }).ToList();
 
-            return res;
+            return result;
         }
 
         public async Task<RoleFormModel> GetRole(string roleId)
@@ -44,7 +44,7 @@ namespace RescuedPaws.Core.Services.Administration
 
             RoleFormModel model = null;
 
-            if(role != null)
+            if (role != null)
             {
                 model = new RoleFormModel
                 {
@@ -74,7 +74,7 @@ namespace RescuedPaws.Core.Services.Administration
             await this._dbContext.Roles.AddAsync(newRole);
             await this._dbContext.SaveChangesAsync();
 
-            foreach(var user in model.AssignedUsers)
+            foreach (var user in model.AssignedUsers)
             {
                 var userRole = new IdentityUserRole<string>
                 {
@@ -98,7 +98,7 @@ namespace RescuedPaws.Core.Services.Administration
         {
             var role = await this._dbContext.Roles.Where(x => x.Id == roleId).FirstOrDefaultAsync();
 
-            if(role != null)
+            if (role != null)
             {
                 this._dbContext.Roles.Remove(role);
                 await this._dbContext.SaveChangesAsync();
@@ -118,13 +118,13 @@ namespace RescuedPaws.Core.Services.Administration
                             DisplayName = dbUser.UserName
                         }).FirstOrDefault();
 
-            if(user != null)
+            if (user != null)
             {
                 var roleExist = (from dbRole in _dbContext.Roles
                                  where dbRole.Id == roleId
                                  select dbRole).Any();
 
-                if(roleExist)
+                if (roleExist)
                 {
                     var userRole = new IdentityUserRole<string>
                     {

@@ -11,6 +11,10 @@ import { ViewUserComponent } from './users/view-user/view-user.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { RolesComponent } from './roles/roles.component';
 import { ViewRoleComponent } from './roles/view-role/view-role.component';
+import { AnimalTypesComponent } from './animal-types/animal-types.component';
+import { ViewAnimalTypeComponent } from './animal-types/view-animal-type/view-animal-type.component';
+import { AnimalSizesComponent } from './animal-sizes/animal-sizes.component';
+import { ViewAnimalSizeComponent } from './animal-sizes/view-animal-size/view-animal-size.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +23,11 @@ import { ViewRoleComponent } from './roles/view-role/view-role.component';
         ViewUserComponent,
         OrganizationsComponent,
         RolesComponent,
-        ViewRoleComponent
+        ViewRoleComponent,
+        AnimalTypesComponent,
+        ViewAnimalTypeComponent,
+        AnimalSizesComponent,
+        ViewAnimalSizeComponent
     ],
     imports: [
         RpPipesModule,

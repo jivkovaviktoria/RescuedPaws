@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { BaseService } from "../common/base.service";
 import { ApiEndpoints } from "src/app/utilities/constants/common/api-endpoints.constants";
 import { Injectable } from "@angular/core";
-import { RoleViewModel } from "../response-models/administration/roles/roleViewModel";
+import { RoleViewModel } from "../response-models/administration/roles/roleProjection";
 import { RoleFormModel } from "../response-models/administration/roles/roleFormModel";
 import { Nomenclature } from "../response-models/common/nomenclature";
 import { UserRoleRequest } from "../response-models/administration/roles/userRoleRequest";

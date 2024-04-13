@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace RescuedPaws.Core.Services.Common
 {
+    /// <summary>
+    /// Base class for services that work with auditable entities.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class BaseAuditableService<TEntity> : BaseService
         where TEntity : class, IAuditableEntity, IEntity
     {

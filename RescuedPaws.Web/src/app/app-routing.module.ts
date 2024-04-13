@@ -9,6 +9,8 @@ import { DashboardComponent } from './components/administration/dashboard/dashbo
 import { UsersComponent } from './components/administration/users/users.component';
 import { OrganizationsComponent } from './components/administration/organizations/organizations.component';
 import { RolesComponent } from './components/administration/roles/roles.component';
+import { AnimalTypesComponent } from './components/administration/animal-types/animal-types.component';
+import { AnimalSizesComponent } from './components/administration/animal-sizes/animal-sizes.component';
 
 const routes: Routes = [
   {
@@ -49,15 +51,24 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'administration/animal-types',
+    pathMatch: 'full',
+    component: AnimalTypesComponent
+  },
+  {
+    path: 'administration/animal-sizes',
+    component: AnimalSizesComponent
+  },
+  {
     path: 'administration',
     component: DashboardComponent,
     pathMatch: 'full'
     //canActivate: [AuthGuard], // Assuming you have a guard for admin routes
-  }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
