@@ -1,4 +1,5 @@
-﻿using RescuedPaws.Core.Contracts.Common;
+﻿using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Contracts.Common;
 using RescuedPaws.Data;
 using RescuedPaws.Data.Contracts.Entities;
 using RescuedPaws.DomainModels.Common;
@@ -17,7 +18,7 @@ namespace RescuedPaws.Core.Services.Common
     public abstract class BaseAuditableService<TEntity> : BaseService
         where TEntity : class, IAuditableEntity, IEntity
     {
-        protected BaseAuditableService(RescuedPawsDbContext dbContext) : base(dbContext)
+        protected BaseAuditableService(RescuedPawsDbContext dbContext, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         {}
     }
 }

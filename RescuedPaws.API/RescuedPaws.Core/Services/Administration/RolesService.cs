@@ -14,7 +14,7 @@ namespace RescuedPaws.Core.Services.Administration
     {
         private readonly ILogger<RolesService> _logger;
 
-        public RolesService(RescuedPawsDbContext dbContext, ILogger<RolesService> logger) : base(dbContext)
+        public RolesService(RescuedPawsDbContext dbContext, ILogger<RolesService> logger, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         {
             this._logger = logger;
         }

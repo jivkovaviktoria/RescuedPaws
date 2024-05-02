@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
+using Microsoft.Extensions.Logging;
 using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses.AnimalTypes;
 using RescuedPaws.Core.Services.Common;
@@ -16,35 +17,51 @@ namespace RescuedPaws.Core.Services.Administration
 {
     public class AnimalTypesService : BaseAuditableService<AnimalType>, IAnimalTypesService
     {
-        public AnimalTypesService(RescuedPawsDbContext dbContext) : base(dbContext)
-        { }
+        private readonly ILogger<AnimalTypesService> _logger;
+
+        public AnimalTypesService(RescuedPawsDbContext dbContext, ILogger<AnimalTypesService> logger, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
+        {
+            this._logger = logger;
+        }
 
         public async Task<List<AnimalTypeProjection>> GetAnimalTypes()
         {
-            var result = await _dbContext.AnimalTypes
-                                         .Select(at => new AnimalTypeProjection
-                                         {
-                                             Id = at.Id,
-                                             Name = at.Name
-                                         })
-                                         .ToListAsync();
-
-            return result;
+            try
+            {
+                return await _dbContext.AnimalTypes
+                                       .Select(at => new AnimalTypeProjection
+                                       {
+                                           Id = at.Id,
+                                           Name = at.Name
+                                       })
+                                       .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error retrieving animal types: {ex.Message}");
+                return new List<AnimalTypeProjection>();
+            }
         }
 
 
         public async Task<AnimalTypeProjection> GetAnimalType(Guid id)
         {
-            var result = await _dbContext.AnimalTypes
-                                         .Where(at => at.Id == id)
-                                         .Select(at => new AnimalTypeProjection
-                                         {
-                                             Id = at.Id,
-                                             Name = at.Name
-                                         })
-                                         .FirstOrDefaultAsync();
-
-            return result;
+            try
+            {
+                return await _dbContext.AnimalTypes
+                                       .Where(at => at.Id == id)
+                                       .Select(at => new AnimalTypeProjection
+                                       {
+                                           Id = at.Id,
+                                           Name = at.Name
+                                       })
+                                       .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error retrieving animal type with ID {id}: {ex.Message}");
+                return null;
+            }
         }
 
 
@@ -52,32 +69,34 @@ namespace RescuedPaws.Core.Services.Administration
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
 
-            AnimalTypeProjection result;
-            AnimalType animalType;
-
-            if (model.Id.HasValue)
+            try
             {
-                animalType = await _dbContext.AnimalTypes.FirstOrDefaultAsync(at => at.Id == model.Id.Value);
+                AnimalType animalType;
+                if (model.Id.HasValue && model.Id.Value != Guid.Empty)
+                {
+                    animalType = await _dbContext.AnimalTypes.FirstOrDefaultAsync(at => at.Id == model.Id.Value);
+                    if (animalType == null) return null;
+                }
+                else
+                {
+                    animalType = new AnimalType { Name = model.Name };
+                    _dbContext.AnimalTypes.Add(animalType);
+                }
 
-                if (animalType == null) throw new InvalidOperationException(ErrorMessages.General.NotFound);
-
-                result = Update(animalType, model);
-            }
-            else
-            {
-                animalType = new AnimalType { Name = model.Name, CreatedBy = "VIKTORIYAV", CreatedOn = DateTime.Now };
-                _dbContext.AnimalTypes.Add(animalType);
+                animalType.Name = model.Name;
                 await _dbContext.SaveChangesAsync();
 
-                result = new AnimalTypeProjection
+                return new AnimalTypeProjection
                 {
                     Id = animalType.Id,
                     Name = animalType.Name
                 };
             }
-
-            await _dbContext.SaveChangesAsync();
-            return result;
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error adding or updating animal type: {ex.Message}");
+                return null;
+            }
         }
 
 

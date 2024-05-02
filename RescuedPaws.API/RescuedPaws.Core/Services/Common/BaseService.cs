@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RescuedPaws.Data;
 using RescuedPaws.Data.Contracts.Entities;
 using RescuedPaws.Data.Contracts.Repositories;
@@ -17,10 +18,12 @@ namespace RescuedPaws.Core.Services.Common
     public abstract class BaseService
     {
         protected readonly RescuedPawsDbContext _dbContext;
+        private readonly ILogger<BaseService> _logger;
 
-        protected BaseService(RescuedPawsDbContext dbContext)
+        protected BaseService(RescuedPawsDbContext dbContext, ILogger<BaseService> logger)
         {
-           this._dbContext = dbContext;
+            this._dbContext = dbContext;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -32,13 +35,22 @@ namespace RescuedPaws.Core.Services.Common
 
         public async Task<bool> SoftDeleteAsync<T>(Guid id) where T : class, ISoftDeletableEntity, IEntity
         {
-            var entity = await _dbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
-            if (entity == null) return false;
+            try
+            {
+                var entity = await _dbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                if (entity == null) return false;
 
-            entity.IsActive = false;
+                entity.IsActive = false;
 
-            await _dbContext.SaveChangesAsync();
-            return true;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error deleting animal type with ID {id}: {ex.Message}");
+                return false;
+            }
+
         }
     }
 }

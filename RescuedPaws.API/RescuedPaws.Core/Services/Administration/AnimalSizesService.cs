@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses.AnimalSize;
 using RescuedPaws.Core.Services.Common;
@@ -14,82 +15,92 @@ namespace RescuedPaws.Core.Services.Administration
 {
     public class AnimalSizesService : BaseAuditableService<AnimalSize>, IAnimalSizesService
     {
-        public AnimalSizesService(RescuedPawsDbContext dbContext) : base(dbContext)
-        { }
+        private readonly ILogger<AnimalSizesService> _logger;
+        public AnimalSizesService(RescuedPawsDbContext dbContext, ILogger<AnimalSizesService> logger, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
+        {
+            this._logger = logger;
+        }
 
         public async Task<List<AnimalSizeProjection>> GetAnimalSizes()
         {
-            var result = await _dbContext.AnimalSizes
-                                         .Select(a => new AnimalSizeProjection
-                                         {
-                                             Id = a.Id,
-                                             Name = a.Name
-                                         })
-                                         .ToListAsync();
-
-            return result;
+            try
+            {
+                return await _dbContext.AnimalSizes
+                                       .Select(a => new AnimalSizeProjection
+                                       {
+                                           Id = a.Id,
+                                           Name = a.Name
+                                       })
+                                       .AsNoTracking()
+                                       .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Failed to retrieve animal sizes: {ex.Message}");
+                return new List<AnimalSizeProjection>();
+            }
         }
 
         public async Task<AnimalSizeProjection> GetAnimalSize(Guid id)
         {
-            var result = await _dbContext.AnimalSizes
-                                         .Where(a => a.Id == id)
-                                         .Select(a => new AnimalSizeProjection
-                                         {
-                                             Id = a.Id,
-                                             Name = a.Name
-                                         })
-                                         .FirstOrDefaultAsync();
-
-            return result;
+            try
+            {
+                return await _dbContext.AnimalSizes
+                                       .Where(a => a.Id == id)
+                                       .Select(a => new AnimalSizeProjection
+                                       {
+                                           Id = a.Id,
+                                           Name = a.Name
+                                       })
+                                       .AsNoTracking()
+                                       .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Failed to retrieve animal size with ID {id}: {ex.Message}");
+                return null;
+            }
         }
 
         public async Task<AnimalSizeProjection> AddOrUpdateAnimalSize(AnimalSizeFormModel model)
         {
             if (model == null) throw new ArgumentNullException(nameof(model));
 
-            AnimalSizeProjection result;
-            AnimalSize animalSize;
-
-            if (model.Id.HasValue)
+            try
             {
-                animalSize = await _dbContext.AnimalSizes.FirstOrDefaultAsync(a => a.Id == model.Id.Value);
+                AnimalSize animalSize = await _dbContext.AnimalSizes.FirstOrDefaultAsync(a => a.Id == model.Id.GetValueOrDefault());
 
-                if (animalSize == null) throw new InvalidOperationException(ErrorMessages.General.NotFound);
+                if (model.Id.HasValue && animalSize == null) throw new InvalidOperationException(ErrorMessages.General.NotFound);
+                
 
-                result = Update(animalSize, model);
-            }
-            else
-            {
-                animalSize = new AnimalSize { Name = model.Name, CreatedBy = "VIKTORIYAV", CreatedOn = DateTime.Now};
-                _dbContext.AnimalSizes.Add(animalSize);
+                if (animalSize == null)
+                {
+                    animalSize = new AnimalSize { Name = model.Name };
+                    _dbContext.AnimalSizes.Add(animalSize);
+                }
+                else
+                {
+                    animalSize.Name = model.Name;
+                }
+
                 await _dbContext.SaveChangesAsync();
 
-                result = new AnimalSizeProjection
+                return new AnimalSizeProjection
                 {
                     Id = animalSize.Id,
                     Name = animalSize.Name
                 };
             }
-
-            await _dbContext.SaveChangesAsync();
-            return result;
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error adding or updating animal size: {ex.Message}");
+                return null;
+            }
         }
 
         public Task<bool> DeleteAnimalSize(Guid id)
         {
             return base.SoftDeleteAsync<AnimalSize>(id);
-        }
-
-        private AnimalSizeProjection Update(AnimalSize animalSize, AnimalSizeFormModel model)
-        {
-            animalSize.Name = model.Name;
-
-            return new AnimalSizeProjection
-            {
-                Id = animalSize.Id,
-                Name = animalSize.Name
-            };
         }
     }
 }
