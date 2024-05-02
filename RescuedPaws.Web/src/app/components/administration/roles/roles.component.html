@@ -3,7 +3,7 @@
               [data]="rowsData" 
               (onViewClick)="openViewDialog($event)"
               (onEditClick)="openEditDialog($event)"
-              (onAddClick)="openAddDialog()"
-              (onDeleteClick)="openDeleteConfirmationDialog()">
+              (onAddClick)="openAddDialog($event)"
+              (onDeleteClick)="openDeleteConfirmationDialog($event)">
     </rp-table>
 </div>

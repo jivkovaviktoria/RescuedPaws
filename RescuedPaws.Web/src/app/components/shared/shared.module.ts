@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {
     MatDialogTitle,
     MatDialogContent,
@@ -46,7 +47,8 @@ import { RpConfirmDeleteComponent } from './rp-controls/rp-dialog/rp-confirm-del
         MatInputModule,
         FormsModule,
         MatButtonModule,
-        MatDialogModule
+        MatDialogModule,
+        MatExpansionModule,
     ],
     exports: [
         HomeComponent,

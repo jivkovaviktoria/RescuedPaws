@@ -7,6 +7,10 @@
     background-color: #6699CC;
 }
 
+::ng-deep mat-expansion-panel {
+    background-color: unset !important;
+}
+
 .mat-drawer-header {
     background-color: #3f6c99;
     height: 54px;

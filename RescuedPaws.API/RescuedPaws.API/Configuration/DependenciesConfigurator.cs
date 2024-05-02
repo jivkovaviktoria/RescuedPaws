@@ -37,6 +37,7 @@ namespace RescuedPaws.API.Configuration
             builder.Services.AddScoped<INomenclaturesService, NomenclaturesService>();
             builder.Services.AddScoped<IAnimalTypesService, AnimalTypesService>();
             builder.Services.AddScoped<IAnimalSizesService, AnimalSizesService>();
+            builder.Services.AddScoped<IUserDataService, UserDataService>();
         }
     }
 }

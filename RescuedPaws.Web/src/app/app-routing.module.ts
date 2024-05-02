@@ -11,6 +11,7 @@ import { OrganizationsComponent } from './components/administration/organization
 import { RolesComponent } from './components/administration/roles/roles.component';
 import { AnimalTypesComponent } from './components/administration/animal-types/animal-types.component';
 import { AnimalSizesComponent } from './components/administration/animal-sizes/animal-sizes.component';
+import { RpRoutes } from './utilities/constants/common/rp-routes.constants';
 
 const routes: Routes = [
   {
@@ -24,12 +25,14 @@ const routes: Routes = [
   {
     path: 'adopt',
     component: ListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADOPT
+    }
   },
   {
     path: 'login',
     component: SignInComponent,
-    canActivate: []
   },
   {
     path: 'register',
@@ -38,32 +41,55 @@ const routes: Routes = [
   {
     path: 'administration/users',
     component: UsersComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN_USERS
+    }
   },
   {
     path: 'administration/organizations',
     component: OrganizationsComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN_ORGANIZATIONS
+    }
   },
   {
     path: 'administration/roles',
     component: RolesComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN_ROLES
+    }
   },
   {
     path: 'administration/animal-types',
     pathMatch: 'full',
-    component: AnimalTypesComponent
+    component: AnimalTypesComponent,
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN_ANIMAL_TYPES
+    }
   },
   {
     path: 'administration/animal-sizes',
-    component: AnimalSizesComponent
+    component: AnimalSizesComponent,
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN_ANIMAL_SIZES
+    }
   },
   {
     path: 'administration',
     component: DashboardComponent,
-    pathMatch: 'full'
-    //canActivate: [AuthGuard], // Assuming you have a guard for admin routes
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: {
+      routeName: RpRoutes.ADMIN
+    }
   },
 ];
 

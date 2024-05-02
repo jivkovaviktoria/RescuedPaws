@@ -12,6 +12,7 @@ import { SharedModule } from './components/shared/shared.module';
 import { AdoptModule } from './components/adopt/adopt.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdministrationModule } from './components/administration/administration.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AdministrationModule } from './components/administration/administration
     BrowserAnimationsModule,
     RouterModule,
     MatSidenavModule,
+    MatSnackBarModule,
     HttpClientModule,
     SharedModule,
     AdoptModule,

@@ -16,7 +16,6 @@ export class ViewAnimalTypeComponent extends RpDialogComponent implements OnInit
   public role!: AnimalTypeFormModel;
   public isReadonly: boolean = false;
 
-  private readonly _dialogService: DialogService;
   private readonly _animalTypesService: AnimalTypesService;
 
   constructor(
@@ -25,7 +24,7 @@ export class ViewAnimalTypeComponent extends RpDialogComponent implements OnInit
     public override dialogRef: MatDialogRef<RpDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
   ) {
-    super(dialogRef, data);
+    super(dialogRef, dialogService, data);
     this._dialogService = dialogService;
     this._animalTypesService = animalTypesService;
   }

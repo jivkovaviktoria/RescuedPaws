@@ -2,7 +2,8 @@ export const ApiEndpoints = {
     'base': 'https://localhost:7138',
     'auth': {
         'login': '/authentication/login?useCookies=false&useSessionCookies=false',
-        'register': '/authentication/register'
+        'register': '/authentication/register',
+        'getUserRoutePermissions': '/Common/UserPermissions'
     },
     'administration': {
         'usersCount': '/Administration/UsersCount',
@@ -11,7 +12,10 @@ export const ApiEndpoints = {
         'getUsers': '/Administration/Users',
         'getRoles': '/Administration/Roles',
         'getRole': '/Administration/Role',
+        'addOrUpdateRole': '/Administration/Role',
+        'deleteRole': '/Administration/Role',
         'assignToUser': '/Administration/AssignToUser',
+        'unassignToUser': '/Administration/UnassignFromUser',
         'getAnimalTypes': '/Administration/AnimalTypes',
         'getAnimalType': '/Administration/AnimalType',
         'getAnimalSizes': '/Administration/AnimalSizes',

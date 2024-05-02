@@ -4,17 +4,22 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../utilities/constants/common/api-endpoints.constants';
 import { AuthResponse } from './response-models/authentication/authResponse';
+import { BaseService } from './common/base.service';
+import { UserDataService } from './common/user-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-  private http: HttpClient;
+export class AuthenticationService extends BaseService{
   private router: Router;
+  private userDataService: UserDataService;
 
-  constructor(http: HttpClient, router: Router) {
-    this.http = http
+  constructor(http: HttpClient,
+              router: Router,
+              userDataService: UserDataService) {
+    super(http);
     this.router = router;
+    this.userDataService = userDataService;
   }
 
   public isLoggedIn(): boolean {
@@ -32,9 +37,11 @@ export class AuthenticationService {
       password: authRequest.password
     }
 
-    const result = this.http.post<AuthResponse>(`${ApiEndpoints.base}${ApiEndpoints.auth.login}`, body).subscribe({
+    await this.http.post<AuthResponse>(`${ApiEndpoints.base}${ApiEndpoints.auth.login}`, body).subscribe({
       next: (result: AuthResponse) => {
         sessionStorage.setItem('bearer-token', result.accessToken);
+        this.userDataService.setUserRoutePermissions();
+        
         this.router.navigate(['/home']);
       }
     });

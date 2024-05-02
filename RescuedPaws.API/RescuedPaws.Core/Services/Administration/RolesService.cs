@@ -1,111 +1,114 @@
 ﻿using RescuedPaws.Core.Contracts.Administration;
-using RescuedPaws.Core.Contracts.Common;
 using RescuedPaws.Core.Models.Administration.Responses.Roles;
 using RescuedPaws.Core.Models.Common;
 using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Data;
 using RescuedPaws.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using RescuedPaws.DomainModels.Common;
-using RescuedPaws.Utilities.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace RescuedPaws.Core.Services.Administration
 {
     public class RolesService : BaseService, IRolesService
     {
-        public RolesService(RescuedPawsDbContext dbContext) : base(dbContext)
-        { }
+        private readonly ILogger<RolesService> _logger;
+
+        public RolesService(RescuedPawsDbContext dbContext, ILogger<RolesService> logger) : base(dbContext)
+        {
+            this._logger = logger;
+        }
 
         public async Task<List<RoleProjection>> GetRoles()
         {
-            var result = (from dbRole in _dbContext.Roles
-                       select new RoleProjection
-                       {
-                           Id = dbRole.Id,
-                           Name = dbRole.Name ?? string.Empty,
-                           UsersCount = (from dbUser in _dbContext.Users
-                                         join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
-                                         where dbUserRole.RoleId == dbRole.Id
-                                         select dbUser).Count()
-                       }).ToList();
-
-            return result;
+            try
+            {
+                return await (from dbRole in _dbContext.Roles
+                              select new RoleProjection
+                              {
+                                  Id = dbRole.Id,
+                                  Name = dbRole.Name ?? string.Empty,
+                                  UsersCount = (from dbUser in _dbContext.Users
+                                                join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
+                                                where dbUserRole.RoleId == dbRole.Id
+                                                select dbUser).Count()
+                              }).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError($"Error getting roles: {ex.Message}");
+                return new List<RoleProjection>();
+            }
         }
 
         public async Task<RoleFormModel> GetRole(string roleId)
         {
-            var role = _dbContext.Roles.Where(role => role.Id == roleId).FirstOrDefault();
-
-            RoleFormModel model = null;
-
-            if (role != null)
+            try
             {
-                model = new RoleFormModel
+                var role = await _dbContext.Roles.Where(r => r.Id == roleId).AsNoTracking().FirstOrDefaultAsync();
+
+                if (role == null) return null;
+
+                return new RoleFormModel
                 {
                     Id = role.Id,
                     Name = role.Name,
-                    AssignedUsers = (from dbUser in _dbContext.Users
-                                     join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
-                                     where dbUserRole.RoleId == role.Id
-                                     select new Nomenclature<string>
-                                     {
-                                         Id = dbUser.Id,
-                                         DisplayName = dbUser.UserName
-                                     }).ToList()
+                    AssignedUsers = await (from dbUser in _dbContext.Users
+                                           join dbUserRole in _dbContext.UserRoles on dbUser.Id equals dbUserRole.UserId
+                                           where dbUserRole.RoleId == role.Id
+                                           select new Nomenclature<string>
+                                           {
+                                               Id = dbUser.Id,
+                                               DisplayName = dbUser.UserName
+                                           }).ToListAsync()
                 };
             }
-
-            return model;
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting role by ID {roleId}: {ex.Message}");
+                return null;
+            }
         }
 
         public async Task<RoleProjection> AddOrUpdateRole(RoleFormModel model)
         {
-            var newRole = new Role
+            try
             {
-                Name = model.Name
-            };
+                var role = await _dbContext.Roles.FirstOrDefaultAsync(x => x.Id == model.Id) ?? new Role();
+                role.Name = model.Name;
+                _dbContext.Roles.Update(role);
+                await _dbContext.SaveChangesAsync();
 
-            await this._dbContext.Roles.AddAsync(newRole);
-            await this._dbContext.SaveChangesAsync();
-
-            foreach (var user in model.AssignedUsers)
-            {
-                var userRole = new IdentityUserRole<string>
+                return new RoleProjection
                 {
-                    UserId = user.Id,
-                    RoleId = newRole.Id
+                    Id = role.Id,
+                    Name = role.Name,
+                    UsersCount = model.AssignedUsers.Count
                 };
-
-                await this._dbContext.UserRoles.AddAsync(userRole);
             }
-
-            await this._dbContext.SaveChangesAsync();
-
-            return new RoleProjection
+            catch (Exception ex)
             {
-                Name = newRole.Name,
-                UsersCount = model.AssignedUsers.Count,
-            };
+                _logger.LogError($"Error adding or updating role: {ex.Message}");
+                return null;
+            }
         }
 
         public async Task<bool> DeleteRole(string roleId)
         {
-            var role = await this._dbContext.Roles.Where(x => x.Id == roleId).FirstOrDefaultAsync();
-
-            if (role != null)
+            try
             {
-                this._dbContext.Roles.Remove(role);
-                await this._dbContext.SaveChangesAsync();
+                var role = await _dbContext.Roles.FindAsync(roleId);
+                if (role == null) return false;
+
+                _dbContext.Roles.Remove(role);
+                await _dbContext.SaveChangesAsync();
                 return true;
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error deleting role {roleId}: {ex.Message}");
+                return false;
+            }
         }
 
         public async Task<Nomenclature<string>> AssignRoleToUser(string userId, string roleId)
@@ -133,6 +136,33 @@ namespace RescuedPaws.Core.Services.Administration
                     };
 
                     await this._dbContext.UserRoles.AddAsync(userRole);
+                    await this._dbContext.SaveChangesAsync();
+                }
+            }
+
+            return user;
+        }
+
+        public async Task<Nomenclature<string>> UnassignRoleToUser(string userId, string roleId)
+        {
+            var user = (from dbUser in _dbContext.Users
+                        where dbUser.Id == userId
+                        select new Nomenclature<string>
+                        {
+                            Id = dbUser.Id,
+                            DisplayName = dbUser.UserName
+                        }).FirstOrDefault();
+
+            if (user != null)
+            {
+                var userRole = await (from dbRole in _dbContext.Roles
+                                      join dbUserRole in _dbContext.UserRoles on dbRole.Id equals dbUserRole.RoleId
+                                      where dbUserRole.RoleId == roleId && dbUserRole.UserId == userId
+                                      select dbUserRole).FirstOrDefaultAsync();
+
+                if (userRole != null)
+                {
+                    this._dbContext.UserRoles.Remove(userRole);
                     await this._dbContext.SaveChangesAsync();
                 }
             }

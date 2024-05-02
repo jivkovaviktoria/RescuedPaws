@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RescuedPaws.Core.Contracts.Administration;
-using RescuedPaws.Core.Models.Common.Requests;
-using RescuedPaws.Utilities.Constants;
 using static RescuedPaws.Utilities.Constants.ApiConstants;
 using static RescuedPaws.Utilities.Constants.ApiConstants.AdministrationRoutes;
 

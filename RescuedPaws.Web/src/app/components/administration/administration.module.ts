@@ -15,6 +15,7 @@ import { AnimalTypesComponent } from './animal-types/animal-types.component';
 import { ViewAnimalTypeComponent } from './animal-types/view-animal-type/view-animal-type.component';
 import { AnimalSizesComponent } from './animal-sizes/animal-sizes.component';
 import { ViewAnimalSizeComponent } from './animal-sizes/view-animal-size/view-animal-size.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { ViewAnimalSizeComponent } from './animal-sizes/view-animal-size/view-an
         RouterModule,
         MatSidenavModule,
         MatIconModule,
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule
     ],
     exports: [
         DashboardComponent,

@@ -8,7 +8,7 @@ import { LanguageConstants } from '../utilities/constants/common/language.consta
 export class LanguageService {
 
   private languageSource = new BehaviorSubject<string>(LanguageConstants.default);
-  currentLanguage = this.languageSource.asObservable();
+  public currentLanguage = this.languageSource.asObservable();
   
   constructor() { }
 

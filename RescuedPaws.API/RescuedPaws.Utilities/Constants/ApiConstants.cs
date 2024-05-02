@@ -18,6 +18,7 @@ namespace RescuedPaws.Utilities.Constants
         {
             public const string Administration = "Administration";
             public const string Nomenclatures = "Nomenclatures";
+            public const string Common = "Common";
         } 
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace RescuedPaws.Utilities.Constants
                 public const string AddOrUpdateRole = "Role";
                 public const string DeleteRole = "Role";
                 public const string AssignToUser = "AssignToUser";
+                public const string UnassignFromUser = "UnassignFromUser";
             }
 
             public static class AnimalTypes
@@ -70,6 +72,14 @@ namespace RescuedPaws.Utilities.Constants
         public static class Nomenclatures
         {
             public const string GetUsers = "Users";
+        }
+
+        /// <summary>
+        /// Common routes
+        /// </summary>
+        public static class Common
+        {
+            public const string GetUserPermissions = "UserPermissions";
         }
     }
 }

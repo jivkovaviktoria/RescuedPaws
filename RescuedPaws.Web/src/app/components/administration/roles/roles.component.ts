@@ -4,13 +4,15 @@ import { TableColumn } from '../../shared/rp-controls/rp-table/interfaces/table-
 import { TableRow } from '../../shared/rp-controls/rp-table/interfaces/table-row.interface';
 import { LanguageService } from 'src/app/services/language.service';
 import { RolesService } from 'src/app/services/administration/roles.service';
-import { RoleViewModel } from 'src/app/services/response-models/administration/roles/roleProjection';
 import { RpDialogComponent } from '../../shared/rp-controls/rp-dialog/rp-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewRoleComponent } from './view-role/view-role.component';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { Nomenclature } from 'src/app/services/response-models/common/nomenclature';
 import { NomenclaturesService } from 'src/app/services/common/nomenclatures.service';
+import { RoleProjection } from 'src/app/services/response-models/administration/roles/roleProjection';
+import { RpTranslatePipe } from 'src/app/pipes/rpTranslate.pipe';
+import { RpTranslateService } from 'src/app/services/rp-translate.service';
 
 @Component({
   selector: 'roles',
@@ -18,13 +20,14 @@ import { NomenclaturesService } from 'src/app/services/common/nomenclatures.serv
   styleUrls: ['./roles.component.css']
 })
 export class RolesComponent extends BaseComponent implements OnInit {
-  public roles: RoleViewModel[] = [];
+  public roles: RoleProjection[] = [];
   public columnsData!: TableColumn[];
   public rowsData!: TableRow[];
 
   private usersNomenclatures: Nomenclature<string>[] = [];
 
-  private readonly _dialog;
+  private readonly _dialog: MatDialog;
+  private readonly _translateService: RpTranslateService;
   private readonly _dialogService: DialogService;
   private readonly _rolesService: RolesService;
   private readonly _nomenclaturesService: NomenclaturesService;
@@ -34,7 +37,8 @@ export class RolesComponent extends BaseComponent implements OnInit {
     dialogService: DialogService,
     languageService: LanguageService,
     nomenclaturesService: NomenclaturesService,
-    dialog: MatDialog
+    dialog: MatDialog,
+    translateService: RpTranslateService
   ) {
     super(languageService);
 
@@ -42,17 +46,14 @@ export class RolesComponent extends BaseComponent implements OnInit {
     this._rolesService = rolesService;
     this._nomenclaturesService = nomenclaturesService;
     this._dialog = dialog;
+    this._translateService = translateService;
   }
 
   public override ngOnInit(): void {
     super.ngOnInit();
 
-    this._rolesService.getRoles().subscribe({
-      next: (result: RoleViewModel[]) => {
-        this.rowsData = result.map(role => this.transformToTableRow(role));
-        this.columnsData = this.createColumnsBasedOnData(result[0]);
-      }
-    });
+    this.loadRoles();
+    this.loadUsersNomenclatures();
   }
 
   public openViewDialog(event: any): void {
@@ -62,72 +63,94 @@ export class RolesComponent extends BaseComponent implements OnInit {
       height: '60%',
       width: '30%',
       panelClass: 'view-dialog',
-      data: { component: ViewRoleComponent, title: 'View role', isReadonly: true }
+      data: {
+        component: ViewRoleComponent,
+        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.role')}`,
+        isReadonly: true,
+        usersNomenclatures: this.usersNomenclatures
+      }
     });
   }
 
   public openEditDialog(event: any): void {
     this._dialogService.setData(event);
 
+    this._dialog.open(RpDialogComponent, {
+      height: '77%',
+      width: '50%',
+      panelClass: 'edit-dialog',
+      data: {
+        component: ViewRoleComponent,
+        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.role')}`,
+        isReadonly: false,
+        usersNomenclatures: this.usersNomenclatures
+      }
+    });
+  }
+
+  public openAddDialog(event: any): void {
+    this._dialog.open(RpDialogComponent, {
+      height: '77%',
+      width: '50%',
+      panelClass: 'add-dialog',
+      data: {
+        component: ViewRoleComponent,
+        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.role')}`,
+        isReadonly: false,
+        usersNomenclatures: this.usersNomenclatures
+      }
+    });
+  }
+
+  public openDeleteConfirmationDialog(event: any): void {
+    const dialogRef = this._dialog.open(RpDialogComponent, {
+      height: '15%',
+      width: '35%',
+      panelClass: 'delete-dialog',
+      data: {
+        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event.name)}`,
+        isReadonly: false,
+        saveButtonText: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
+      }
+    });
+
+    dialogRef.componentInstance.onSave.subscribe(() => {
+      this._rolesService.deleteRole(event.id).subscribe({
+        next: () => {
+          const indexOfRole = this.rowsData.findIndex(r => r['id'] === event.id);
+          this.rowsData.splice(indexOfRole, 1);
+        }
+      });
+    });
+  }
+
+  private loadRoles(): void {
+    this._rolesService.getRoles().subscribe({
+      next: (result: RoleProjection[]) => {
+        this.roles = result;
+
+        this.rowsData = result.map(role => this.transformToTableRow(role));
+        this.columnsData = this.createColumnsBasedOnData(result[0]);
+      }
+    });
+  }
+
+  private loadUsersNomenclatures(): void {
     this._nomenclaturesService.getUsers().subscribe({
       next: (result: Nomenclature<string>[]) => {
         this.usersNomenclatures = result;
-
-        const dialogRef = this._dialog.open(RpDialogComponent, {
-          height: '77%',
-          width: '50%',
-          panelClass: 'view-dialog',
-          data: {
-            component: ViewRoleComponent,
-            title: 'View role',
-            isReadonly: false,
-            usersNomenclatures: this.usersNomenclatures
-          }
-        });
-
-        // const ViewRoleComponentInstance  = dialogRef.componentInstance;
-
-        // (ViewRoleComponentInstance.data.component.onUserAssign).subscribe((event) => {
-        //   const roleId = event.roleId;
-        //   const count = event.count;
-
-        //   const role = this.roles.find(r => r.id === roleId);
-
-        //   if(role != null){
-        //     role.usersCount += count;
-
-        //   }
-        // });
-      } 
+      }
     });
   }
 
-  public openAddDialog(): void {
-    this._dialog.open(RpDialogComponent, {
-      height: '50%',
-      width: '30%',
-      panelClass: 'view-dialog',
-      data: { component: ViewRoleComponent, title: 'View role', isReadonly: false }
-    });
-  }
-
-  public openDeleteConfirmationDialog(): void {
-    this._dialog.open(RpDialogComponent, {
-      height: '15%',
-      width: '30%',
-      panelClass: 'view-dialog',
-      data: { title: 'Are you sure you want to delete this role?', isReadonly: false }
-    });
-  }
-
-  private createColumnsBasedOnData(data: RoleViewModel): TableColumn[] {
+  private createColumnsBasedOnData(data: RoleProjection): TableColumn[] {
     return Object.keys(data).map(key => ({
       header: this.formatHeader(key),
       field: key
     }));
   }
 
-  private transformToTableRow(role: RoleViewModel): Record<string, any> {
+  private transformToTableRow(role: RoleProjection): Record<string, any> {
     return {
       id: role.id,
       name: role.name,

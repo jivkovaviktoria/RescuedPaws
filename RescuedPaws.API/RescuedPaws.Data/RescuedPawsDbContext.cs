@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RescuedPaws.Data.Configuration.Interceptors;
 using RescuedPaws.Data.Entities;
 using System.Reflection;
 
@@ -26,6 +27,11 @@ namespace RescuedPaws.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(new AuditingInterceptor());
         }
     }
 }

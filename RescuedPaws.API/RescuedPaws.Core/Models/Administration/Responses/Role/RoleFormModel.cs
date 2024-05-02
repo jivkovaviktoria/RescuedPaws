@@ -9,8 +9,8 @@ namespace RescuedPaws.Core.Models.Administration.Responses.Roles
 {
     public class RoleFormModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string Name { get; set; }
-        public List<Nomenclature<string>> AssignedUsers { get; set; }
+        public List<Nomenclature<string>> AssignedUsers { get; set; } = new List<Nomenclature<string>>();
     }
 }

@@ -15,5 +15,6 @@ namespace RescuedPaws.Core.Contracts.Administration
         Task<RoleProjection> AddOrUpdateRole(RoleFormModel model);
         Task<bool> DeleteRole(string roleId);
         Task<Nomenclature<string>> AssignRoleToUser(string roleId, string userId);
+        Task<Nomenclature<string>> UnassignRoleToUser(string userId, string roleId);
     }
 }

@@ -12,76 +12,106 @@
 
             <nav class="mt-4">
                 <!-- Dashboard Link -->
-                <a routerLink="/administration" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                <a routerLink="/administration" class="flex items-center px-3 py-2 text-white hover:bg-[#3f6c99]">
                     <mat-icon class="mr-2">dashboard</mat-icon>
                     {{'sidenav.dashboard' | rpTranslate:'navigation':selectedLanguage}}
                 </a>
+                <mat-accordion class="flex flex-col p-2">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{'sidenav.user-management' | rpTranslate:'navigation':selectedLanguage}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-                <!-- User Management Links -->
-                <p class="text-gray-400 mx-6 pt-4 uppercase pl-3">{{'sidenav.user-management' | rpTranslate:'navigation':selectedLanguage}}</p>
-                <a routerLink="/administration/users" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">group</mat-icon>
-                    {{'sidenav.user-list' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a routerLink="/administration/organizations" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">domain</mat-icon>
-                    {{'sidenav.organization-list' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a routerLink="/administration/roles" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">admin_panel_settings</mat-icon>
-                    {{'sidenav.roles' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
+                        <!-- User Management Links -->
 
-                <!-- Animal Management Links -->
-                <p class="text-gray-400 mx-6 pt-4 pl-3 uppercase">{{'sidenav.animal-management' | rpTranslate:'navigation':selectedLanguage}}</p>
-                <a routerLink="/administration/animal-types" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">pets</mat-icon>
-                    {{'sidenav.animal-types' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a routerLink="/administration/animal-sizes" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">straighten</mat-icon>
-                    {{'sidenav.animal-sizes' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
+                        <a routerLink="/administration/users"
+                            class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">group</mat-icon>
+                            {{'sidenav.user-list' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a routerLink="/administration/organizations"
+                            class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">domain</mat-icon>
+                            {{'sidenav.organization-list' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a routerLink="/administration/roles"
+                            class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">admin_panel_settings</mat-icon>
+                            {{'sidenav.roles' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{'sidenav.animal-management' | rpTranslate:'navigation':selectedLanguage}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-                <!-- Content Management Links -->
-                <p class="text-gray-400 mx-6 pt-4 uppercase pl-3">{{'sidenav.content-management' | rpTranslate:'navigation':selectedLanguage}}</p>
-                <a href="/posts" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">post_add</mat-icon>
-                    {{'sidenav.posts' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a href="/events" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">event</mat-icon>
-                    {{'sidenav.events' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a href="/success-stories" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">star_rate</mat-icon>
-                    {{'sidenav.success-stories' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a href="/media" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">perm_media</mat-icon>
-                    {{'sidenav.files' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
+                        <!-- Animal Management Links -->
+                        <a routerLink="/administration/animal-types"
+                            class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">pets</mat-icon>
+                            {{'sidenav.animal-types' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a routerLink="/administration/animal-sizes"
+                            class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">straighten</mat-icon>
+                            {{'sidenav.animal-sizes' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{'sidenav.content-management' | rpTranslate:'navigation':selectedLanguage}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-                <!-- Location Services Links -->
-                <p class="text-gray-400 mx-6 pt-4 uppercase pl-3">{{'sidenav.location-services' | rpTranslate:'navigation':selectedLanguage}}</p>
-                <a href="/towns" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">location_city</mat-icon>
-                    {{'sidenav.towns' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
-                <a href="/locations" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
-                    <mat-icon class="mr-2">public</mat-icon>
-                    {{'sidenav.locations' | rpTranslate:'navigation':selectedLanguage}}
-                </a>
+                        <!-- Content Management Links -->
+                        <a href="/posts" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">post_add</mat-icon>
+                            {{'sidenav.posts' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a href="/events" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">event</mat-icon>
+                            {{'sidenav.events' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a href="/success-stories" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">star_rate</mat-icon>
+                            {{'sidenav.success-stories' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a href="/media" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">perm_media</mat-icon>
+                            {{'sidenav.files' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                    </mat-expansion-panel>
+
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{'sidenav.location-services' | rpTranslate:'navigation':selectedLanguage}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <!-- Location Services Links -->
+                        <a href="/towns" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">location_city</mat-icon>
+                            {{'sidenav.towns' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                        <a href="/locations" class="flex items-center px-3 py-2 text-white hover:bg-gray-700">
+                            <mat-icon class="mr-2">public</mat-icon>
+                            {{'sidenav.locations' | rpTranslate:'navigation':selectedLanguage}}
+                        </a>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </nav>
         </div>
-        <!-- <router-outlet></router-outlet> -->
-        <!-- Sidebar ends -->
-
     </mat-drawer>
     <mat-drawer-content class="bg-transparent">
-        <rp-layout class="sticky top-0"
-                   (onLanguageSelect)="selectLanguage($event)" 
-                   (onSidebarToggle)="toggleSidebar()"></rp-layout>
+        <rp-layout class="sticky top-0" (onLanguageSelect)="selectLanguage($event)"
+            (onSidebarToggle)="toggleSidebar()"></rp-layout>
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>

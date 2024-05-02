@@ -1,3 +1,9 @@
 html {
     background-image: url("../assets/images/homepage/homepage.png") !important;
 }
+
+.snackbar-success {
+    --mdc-snackbar-container-color: #28a745;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+}

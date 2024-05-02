@@ -66,5 +66,15 @@ namespace RescuedPaws.API.Controllers.Administration
             if (result != null) return this.Ok(result);
             return this.NotFound();
         }
+
+        [HttpPost]
+        [Route(Roles.UnassignFromUser)]
+        public async Task<IActionResult> UnassignFromUser([FromBody] UserRoleRequest request)
+        {
+            var result = await this._rolesService.UnassignRoleToUser(request.UserId, request.RoleId);
+
+            if (result != null) return this.Ok(result);
+            return this.NotFound();
+        }
     }
 }

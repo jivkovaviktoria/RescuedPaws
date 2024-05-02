@@ -1,10 +1,10 @@
 <div class="p-4 mx-auto bg-white shadow-lg rounded-lg">
-    <div class="mb-6">
+    <div class="mb-6" [formGroup]="form">
         <label for="name" class="block text-gray-800 text-sm font-semibold mb-2">
             Name:
         </label>
-        <input type="text" id="name" name="name" placeholder="Enter name" [disabled]="isReadonly" [value]="model['name']"
-               class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <input type="text" formControlName="nameControl" placeholder="Enter name"
+            class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
     </div>
     <h1 class="text-lg text-gray-800 font-bold text-center mb-4">Assigned Users</h1>
     <div *ngIf="isReadonly" class="overflow-y-scroll border-t border-b border-gray-200" style="max-height: 300px;">
@@ -19,9 +19,14 @@
                 <tr *ngFor="let user of role?.assignedUsers" class="hover:bg-gray-50">
                     <td class="py-2 px-4 border-b text-gray-700">{{user.displayName}}</td>
                     <td *ngIf="!isReadonly" class="py-2 px-4 border-b">
-                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none disabled:text-gray-300" [disabled]="isReadonly" [ngClass]="{'text-red-500': !isReadonly, 'hover:text-red-700': !isReadonly}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-9a1 1 0 01-1 1H8a1 1 0 010-2h4a1 1 0 011 1z" clip-rule="evenodd" />
+                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none disabled:text-gray-300"
+                            [disabled]="isReadonly"
+                            [ngClass]="{'text-red-500': !isReadonly, 'hover:text-red-700': !isReadonly}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-9a1 1 0 01-1 1H8a1 1 0 010-2h4a1 1 0 011 1z"
+                                    clip-rule="evenodd" />
                             </svg>
                         </button>
                     </td>
@@ -29,72 +34,94 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="!isReadonly" class="p-4 mx-auto bg-white shadow-lg rounded-lg flex justify-between">
-        <!-- Table for Adding Users -->
-        <div class="w-1/2 pr-2">
-            <h2 class="text-lg text-gray-800 font-bold text-center mb-4">Add Users</h2>
-            <div class="overflow-y-scroll border-t border-b border-gray-200" style="max-height: 300px;">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="py-2 px-4 border-b-2 font-semibold text-gray-600">Name</th>
-                            <th *ngIf="!isReadonly" class="py-2 px-4 border-b-2 font-semibold text-gray-600">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of usersNomenclatures" class="hover:bg-gray-50">
-                            <td class="py-2 px-4 border-b text-gray-700">{{user.displayName}}</td>
-                            <td *ngIf="!isReadonly" class="py-2 px-4 border-b">
-                                <button class="text-white bg-green-500 hover:bg-green-600 focus:outline-none rounded-full p-[0.5px]" (click)="assignUser(user.id)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 5a1 1 0 012 0v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H7a1 1 0 110-2h3V5z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div *ngIf="!isReadonly" class="p-4 mx-auto bg-white shadow-lg rounded-lg flex justify-center overflow-y-auto">
+        <div class="flex" [ngClass]="{'flex-row': screenWidth > 1685, 'flex-col': screenWidth < 1685}">
+
+
+            <!-- Table for Adding Users -->
+            <div class="w-1/2 pr-2" [ngClass]="{'w-full': screenWidth < 1685}">
+                <h2 class="text-lg text-gray-800 font-bold text-center mb-4">Add Users</h2>
+                <div class="overflow-y-scroll border-t border-b border-gray-200" style="max-height: 300px;">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b-2 font-semibold text-gray-600">Name</th>
+                                <th *ngIf="!isReadonly" class="py-2 px-4 border-b-2 font-semibold text-gray-600">Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of usersNomenclatures" class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b text-gray-700">{{user.displayName}}</td>
+                                <td *ngIf="!isReadonly" class="py-2 px-4 border-b">
+                                    <button
+                                        class="text-white bg-green-500 hover:bg-green-600 focus:outline-none rounded-full p-[0.5px]"
+                                        (click)="assignUser(user.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M10 5a1 1 0 012 0v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H7a1 1 0 110-2h3V5z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    
-        <!-- Action Icons (Arrows) -->
-        <div class="flex flex-col justify-center items-center px-2">
-            <button class="mb-2 text-gray-700 hover:text-gray-900 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-            </button>
-            <button class="text-gray-700 hover:text-gray-900 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                </svg>
-            </button>
-        </div>
-    
-        <!-- Table for Assigned Users -->
-        <div class="w-1/2 pl-2">
-            <h2 class="text-lg text-gray-800 font-bold text-center mb-4">Assigned Users</h2>
-            <div class="overflow-y-scroll border-t border-b border-gray-200" style="max-height: 300px;">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="py-2 px-4 border-b-2 font-semibold text-gray-600">Name</th>
-                            <th *ngIf="!isReadonly" class="py-2 px-4 border-b-2 font-semibold text-gray-600">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of role?.assignedUsers" class="hover:bg-gray-50">
-                            <td class="py-2 px-4 border-b text-gray-700">{{user.displayName}}</td>
-                            <td *ngIf="!isReadonly" class="py-2 px-4 border-b">
-                                <button class="text-gray-500 hover:text-gray-700 focus:outline-none disabled:text-gray-300" [disabled]="isReadonly" [ngClass]="{'text-red-500': !isReadonly, 'hover:text-red-700': !isReadonly}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-9a1 1 0 01-1 1H8a1 1 0 010-2h4a1 1 0 011 1z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <!-- Action Icons (Arrows) -->
+            <div class="flex flex-col justify-center items-center px-2" [ngClass]="{'w-full': screenWidth < 1685}">
+                <button class="mb-2 text-gray-700 hover:text-gray-900 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </button>
+                <button class="text-gray-700 hover:text-gray-900 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Table for Assigned Users -->
+            <div class="w-1/2 pl-2" [ngClass]="{'w-full': screenWidth < 1685}">
+                <h2 class="text-lg text-gray-800 font-bold text-center mb-4">Assigned Users</h2>
+                <div class="overflow-y-scroll border-t border-b border-gray-200" style="max-height: 300px;">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="py-2 px-4 border-b-2 font-semibold text-gray-600">Name</th>
+                                <th *ngIf="!isReadonly" class="py-2 px-4 border-b-2 font-semibold text-gray-600">Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of role?.assignedUsers" class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b text-gray-700">{{user.displayName}}</td>
+                                <td *ngIf="!isReadonly" class="py-2 px-4 border-b">
+                                    <button
+                                        class="text-gray-500 hover:text-gray-700 focus:outline-none disabled:text-gray-300"
+                                        [disabled]="isReadonly"
+                                        [ngClass]="{'text-red-500': !isReadonly, 'hover:text-red-700': !isReadonly}"
+                                        (click)="unassignUser(user.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3-9a1 1 0 01-1 1H8a1 1 0 010-2h4a1 1 0 011 1z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

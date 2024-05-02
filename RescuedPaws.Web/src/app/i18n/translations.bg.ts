@@ -156,16 +156,38 @@ export const translations: Translation = {
             'entities': {
                 'users': 'Потребители',
                 'posts': 'Публикации',
+                'roles': 'Роли',
+                'role': 'Роля',
                 'organizations': 'Организации',
                 'events': 'Събития'
+            },
+            'actions': {
+                'add': 'Добави',
+                'edit': 'Редактирай',
+                'delete': 'Изтрий',
+                'view': 'Преглед'
+            },
+            'messages': {
+                'delete-confirmation': 'Сигурни ли сте, че искате да изтриете {0}?'
             }
         },
         'en': {
             'entities': {
                 'users': 'Users',
                 'posts': 'Posts',
+                'roles': 'Roles',
+                'role': 'Role',
                 'organizations': 'Organizations',
                 'events': 'Events'
+            },
+            'actions': {
+                'add': 'Add',
+                'edit': 'Edit',
+                'delete': 'Delete',
+                'view': 'View'
+            },
+            'messages': {
+                'delete-confirmation': 'Are you sure you want to delete {0}?'
             }
         }
     }
