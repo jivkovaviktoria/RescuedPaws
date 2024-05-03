@@ -175,6 +175,9 @@ export const translations: Translation = {
             'rp-table': {
                 'show-active': 'Покажи активни',
                 'show-inactive': 'Покажи неактивни',
+            },
+            'user-info': {
+                'title': 'Настройки на профила'
             }
         },
         'en': {
@@ -200,6 +203,9 @@ export const translations: Translation = {
             'rp-table': {
                 'show-active': 'Show active',
                 'show-inactive': 'Show inactive',
+            },
+            'user-info': {
+                'title': 'Profile settings'
             }
         }
     }

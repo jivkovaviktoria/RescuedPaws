@@ -1,5 +1,7 @@
-<div class="flex flex-wrap gap-5 justify-around mt-5">
-    <card *ngFor="let card of cards"
-           [title]="'Рони търси дом'"
-           [buttonText]="'Прочети'"></card>
+<div class="card-grid">
+    <card *ngFor="let card of cards">
+        <img [src]="'https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg'" alt="Card Image">
+        <h2>Тони търси дом</h2>
+        <p>{{'2024-05-03' | date}}</p>
+    </card>
 </div>

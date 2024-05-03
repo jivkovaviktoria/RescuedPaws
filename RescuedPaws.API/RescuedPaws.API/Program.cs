@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using RescuedPaws.Core.Services.Common;
 using Microsoft.AspNetCore.Builder;
 using RescuedPaws.API.ActionFilters;
+using System.Net.Security;
+using Microsoft.AspNetCore.Authentication;
 
 namespace RescuedPaws.API
 {

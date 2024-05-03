@@ -1,16 +1,19 @@
-<div class="max-w-xs p-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a>
-        <img class="rounded-lg" src="../../../../assets/images/homepage/slider-dog-3.jpg" alt=""/>
-    </a>
-    <div class="p-5">
-        <a href="#">
-            <h1 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{title}}</h1>
-        </a>
-        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            {{buttonText}}
-             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </a>
-    </div>
-</div>
+<mat-card class="bg-white w-[350px]">
+    <mat-card-content>
+        <ng-content></ng-content>
+    </mat-card-content>
+    <mat-card-actions class="flex flex-row items-center justify-between gap-5">
+        <div class="flex flex-row justify-start items-center gap-4">
+            <button mat-icon-button aria-label="Like" class="flex items-center" *ngIf="hasLikeBtn" (click)="like()" [matBadge]="likesCount" matBadgeSize="small" matBadgePosition="above after" matBadgeColor="accent">
+                <mat-icon [ngClass]="{'text-red-300': hasLike === false, 'text-red-500': hasLike === true}">favorite</mat-icon>
+            </button>
+    
+            <button mat-icon-button aria-label="Favourite" class="flex items-center" *ngIf="hasFavouriteBtn" (click)="favourite()">
+                <mat-icon [ngClass]="{'text-gray-300': hasFavourite === false, 'text-yellow-300': hasFavourite === true}">star</mat-icon>
+            </button>
+        </div>
+        
+
+        <button mat-button class="bg-blue-300 text-white rounded-full p-1" *ngIf="hasReadBtn">READ</button>
+    </mat-card-actions>
+</mat-card>

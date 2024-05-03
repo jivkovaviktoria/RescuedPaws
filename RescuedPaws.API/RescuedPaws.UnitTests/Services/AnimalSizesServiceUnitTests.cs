@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using RescuedPaws.Core.Models.Administration.Responses.AnimalSize;
 using RescuedPaws.UnitTests.Randomizers;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Services.Common;
 
 namespace RescuedPaws.UnitTests.Services
 {
@@ -19,10 +21,10 @@ namespace RescuedPaws.UnitTests.Services
         private readonly AnimalSizeRandomizer _animalSizeRandomizer;
         private readonly AnimalSizesService _animalSizesService;
 
-        public AnimalSizesServiceUnitTests()
+        public AnimalSizesServiceUnitTests(ILogger<AnimalSizesService> logger, ILogger<BaseService> baseLogger) 
         {
             _animalSizeRandomizer = new AnimalSizeRandomizer();
-            _animalSizesService = new AnimalSizesService(this.DbContext);
+            _animalSizesService = new AnimalSizesService(this.DbContext, logger, baseLogger);
         }
 
         /// <summary>

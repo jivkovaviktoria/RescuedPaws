@@ -1,0 +1,13 @@
+<div class="user-info-dialog">
+    <h2>Profile Information</h2>
+
+    <!-- Display the current profile picture -->
+    <div class="profile-picture">
+        <img alt="Profile Picture" />
+    </div>
+
+    <!-- File input for uploading a new profile picture -->
+    <div class="upload-new-picture">
+        <input type="file" (change)="onFileSelected($event)" />
+    </div>
+</div>

@@ -3,7 +3,8 @@ export const ApiEndpoints = {
     'auth': {
         'login': '/authentication/login?useCookies=false&useSessionCookies=false',
         'register': '/authentication/register',
-        'getUserRoutePermissions': '/Common/UserPermissions'
+        'getUserRoutePermissions': '/Common/UserPermissions',
+        'getUserData': '/Common/UserData',
     },
     'administration': {
         'usersCount': '/Administration/UsersCount',

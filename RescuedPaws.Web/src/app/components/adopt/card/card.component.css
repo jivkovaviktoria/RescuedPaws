@@ -1,0 +1,8 @@
+::ng-deep .mat-mdc-card {
+    background-color: white !important;
+    color: black !important;
+}
+
+::ng-deep .mdc-card__actions {
+    padding: 16px !important;
+}

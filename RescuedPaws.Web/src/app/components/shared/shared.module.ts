@@ -25,6 +25,7 @@ import {
     MatDialogModule,
 } from '@angular/material/dialog';
 import { RpConfirmDeleteComponent } from './rp-controls/rp-dialog/rp-confirm-delete/rp-confirm-delete.component';
+import { UserInfoComponent } from './rp-layout/user-info/user-info.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { RpConfirmDeleteComponent } from './rp-controls/rp-dialog/rp-confirm-del
         RpTableComponent,
         RpDialogComponent,
         RpConfirmDeleteComponent,
+        UserInfoComponent,
     ],
     imports: [
         RpPipesModule,

@@ -7,6 +7,7 @@ import { AuthResponse } from './response-models/authentication/authResponse';
 import { BaseService } from './common/base.service';
 import { UserDataService } from './common/user-data.service';
 import { RpTableService } from './common/rp-table.service';
+import { UserFormModel } from './response-models/authentication/userFormModel';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class AuthenticationService extends BaseService {
   private userDataService: UserDataService;
 
   constructor(http: HttpClient,
-              router: Router,
-              userDataService: UserDataService,
-              rpTableService: RpTableService) {
+    router: Router,
+    userDataService: UserDataService,
+    rpTableService: RpTableService) {
     super(http, rpTableService);
-    
+
     this.router = router;
     this.userDataService = userDataService;
   }
@@ -62,6 +63,10 @@ export class AuthenticationService extends BaseService {
         this.router.navigate(['/home']);
       }
     });
+  }
+
+  public getUserData(): Observable<UserFormModel> {
+    return this.http.get<UserFormModel>(`${ApiEndpoints.base}${ApiEndpoints.auth.getUserData}`);
   }
 }
 

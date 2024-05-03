@@ -80,6 +80,7 @@ namespace RescuedPaws.Utilities.Constants
         public static class Common
         {
             public const string GetUserPermissions = "UserPermissions";
+            public const string SetProfilePicture = "SetProfilePicture";
         }
     }
 }

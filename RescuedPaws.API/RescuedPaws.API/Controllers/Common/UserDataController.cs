@@ -24,8 +24,19 @@ namespace RescuedPaws.API.Controllers.Common
         [Route(CommonConstants.GetUserPermissions)]
         public async Task<IActionResult> GetUserPermissions()
         {
+            var claims = HttpContext.User;
+
+            var userName = claims.Identity?.Name;
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             return this.Ok(this._userDataService.GetUserPermissions(userId));
         }
+
+        /*[HttpPost]
+        [Route(CommonConstants.SetProfilePicture)]
+        public async Task<IActionResult> SetProfilePicture([FromQuery] )
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return this.Ok(await this._userDataService.SetProfilePicture(userId, model));
+        }*/
     }
 }
