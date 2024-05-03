@@ -167,7 +167,10 @@ export const translations: Translation = {
                 'add': 'Добави',
                 'edit': 'Редактирай',
                 'delete': 'Изтрий',
-                'view': 'Преглед'
+                'view': 'Преглед',
+                'filter': 'Филтрация',
+                'sort': 'Сортиране',
+                'add-post': 'Добави пост',
             },
             'messages': {
                 'delete-confirmation': 'Сигурни ли сте, че искате да изтриете {0}?'
@@ -195,7 +198,10 @@ export const translations: Translation = {
                 'add': 'Add',
                 'edit': 'Edit',
                 'delete': 'Delete',
-                'view': 'View'
+                'view': 'View',
+                'filter': 'Filter',
+                'sort': 'Sort',
+                'add-post': 'Add post',
             },
             'messages': {
                 'delete-confirmation': 'Are you sure you want to delete {0}?'

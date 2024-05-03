@@ -1,0 +1,38 @@
+<form>
+    <mat-form-field class="w-full">
+        <mat-label>Animal Type</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto1">
+        <mat-autocomplete #auto1="matAutocomplete">
+            <!-- Replace with your animal types -->
+            <mat-option *ngFor="let option of animalTypes" [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Animal Size</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto2">
+        <mat-autocomplete #auto2="matAutocomplete">
+            <!-- Replace with your animal sizes -->
+            <mat-option *ngFor="let option of animalSizes" [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Animal Gender</mat-label>
+        <mat-select>
+            <!-- Replace with your animal genders -->
+            <mat-option *ngFor="let option of animalGenders" [value]="option">{{option}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Town</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto3">
+        <mat-autocomplete #auto3="matAutocomplete">
+            <!-- Replace with your towns -->
+            <mat-option *ngFor="let option of towns" [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Apply Filters</button>
+</form>

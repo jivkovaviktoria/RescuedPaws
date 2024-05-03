@@ -7,11 +7,21 @@ import { RouterModule } from "@angular/router";
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from "@angular/material/icon";
 import { MatBadgeModule } from "@angular/material/badge";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatOptionModule } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+import {MatMenuModule} from '@angular/material/menu';
+import { MatDialogModule } from "@angular/material/dialog";
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { FiltersComponent } from './list/filters/filters.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [
         ListComponent,
-        CardComponent
+        CardComponent,
+        FiltersComponent
     ],
     imports: [
         RpPipesModule,
@@ -19,7 +29,15 @@ import { MatBadgeModule } from "@angular/material/badge";
         RouterModule,
         MatCardModule,
         MatIconModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatAutocompleteModule
     ],
     exports: [
         ListComponent,
