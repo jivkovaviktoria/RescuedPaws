@@ -123,7 +123,7 @@ export class RolesComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private loadRoles(): void {
+  public loadRoles(): void {
     this._rolesService.getRoles().subscribe({
       next: (result: RoleProjection[]) => {
         this.roles = result;

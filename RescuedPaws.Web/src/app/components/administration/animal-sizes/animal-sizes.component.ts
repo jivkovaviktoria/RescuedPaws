@@ -111,7 +111,7 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private loadAnimalSizes(): void {
+  public loadAnimalSizes(): void {
     this._animalSizesService.getAnimalSizes().subscribe({
       next: (result: AnimalSizeProjection[]) => {
         this.rowsData = result.map(role => this.transformToTableRow(role));

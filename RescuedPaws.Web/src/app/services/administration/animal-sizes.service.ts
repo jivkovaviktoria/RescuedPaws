@@ -4,6 +4,8 @@ import { AnimalSizeProjection } from '../response-models/administration/animal-s
 import { ApiEndpoints } from 'src/app/utilities/constants/common/api-endpoints.constants';
 import { BaseService } from '../common/base.service';
 import { AnimalSizeFormModel } from '../response-models/administration/animal-sizes/animalSizeFormModel';
+import { RpTableService } from '../common/rp-table.service';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * A service for interacting with animal sizes.
@@ -13,13 +15,19 @@ import { AnimalSizeFormModel } from '../response-models/administration/animal-si
 })
 export class AnimalSizesService extends BaseService {
 
+  constructor(http: HttpClient, rpTableService: RpTableService) {
+    super(http, rpTableService);
+  }
+  
   /**
    * Retrieves the list of animal sizes from the server.
    * @returns An Observable that emits an array of AnimalSizeProjection objects.
    */
   public getAnimalSizes(): Observable<AnimalSizeProjection[]> {
+    const params = {showOnlyActive: this._rpTableService.showOnlyActive};
+
     const result = this.http.get<AnimalSizeProjection[]>(
-      `${ApiEndpoints.base}${ApiEndpoints.administration.getAnimalSizes}`
+      `${ApiEndpoints.base}${ApiEndpoints.administration.getAnimalSizes}`, {params}
     );
 
     return result;

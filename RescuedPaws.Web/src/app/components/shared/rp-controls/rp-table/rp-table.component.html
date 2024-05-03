@@ -1,8 +1,13 @@
-<div class="flex flex-row justify-end items-center my-2">
-  <button *ngIf="showAddButton" class="border-[1px] rounded-md p-1 text-black flex justify-center items-center"
-          (click)="onAddClick.emit()">
-    <mat-icon>add</mat-icon>
-  </button>
+<div class="flex flex-row items-center justify-between">
+  <div class="flex flex-row justify-start items-center my-2 ">
+    <p class="text-black"><mat-slide-toggle class="text-black" (change)="reloadData($event)">{{getShowText()}}</mat-slide-toggle></p>
+  </div>
+  <div class="flex flex-row justify-end items-center my-2">
+    <button *ngIf="showAddButton" class="border-[1px] rounded-md p-1 text-black flex justify-center items-center"
+            (click)="onAddClick.emit()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
 <div class="flex flex-col border-gray-300 border-[0.25px]">
     <div class="overflow-x-auto">

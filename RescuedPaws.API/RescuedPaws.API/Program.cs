@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using RescuedPaws.Core.Services.Common;
 using Microsoft.AspNetCore.Builder;
+using RescuedPaws.API.ActionFilters;
 
 namespace RescuedPaws.API
 {
@@ -24,7 +25,10 @@ namespace RescuedPaws.API
             builder.ConfigureMSSQLDatabase();
             builder.ConfigureServices();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(config =>
+            {
+                config.Filters.Add(new ShowInactiveActionFilter());
+            });
 
             builder.ConfigureServices();
             builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<RescuedPawsDbContext>().AddApiEndpoints();

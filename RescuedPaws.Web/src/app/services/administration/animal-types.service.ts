@@ -18,8 +18,10 @@ export class AnimalTypesService extends BaseService {
    * @returns An Observable that emits an array of AnimalTypeProjection objects.
    */
   public getAnimalTypes(): Observable<AnimalTypeProjection[]> {
+    const params = {showOnlyActive: this._rpTableService.showOnlyActive};
+
     const result = this.http.get<AnimalTypeProjection[]>(
-      `${ApiEndpoints.base}${ApiEndpoints.administration.getAnimalTypes}`
+      `${ApiEndpoints.base}${ApiEndpoints.administration.getAnimalTypes}`, {params}
     );
 
     return result;
@@ -66,7 +68,7 @@ export class AnimalTypesService extends BaseService {
    */
   public delete(animalTypeId: string): Observable<void> {
     const paramsObj = {
-      animalTypeId: animalTypeId
+      id: animalTypeId
     };
 
     const params = this.toHttpParams(paramsObj);

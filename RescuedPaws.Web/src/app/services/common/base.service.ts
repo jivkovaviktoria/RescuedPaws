@@ -1,14 +1,17 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { RpTableService } from "./rp-table.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class BaseService {
     protected http: HttpClient;
+    protected readonly _rpTableService: RpTableService;
 
-    constructor(http: HttpClient) {
+    constructor(http: HttpClient, rpTableService: RpTableService) {
         this.http = http
+        this._rpTableService = rpTableService;
     }
 
     protected toHttpParams(obj: any): HttpParams {

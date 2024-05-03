@@ -111,7 +111,7 @@ export class AnimalTypesComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private loadAnimalTypes(): void {
+  public loadAnimalTypes(): void {
     this._animalTypesService.getAnimalTypes().subscribe({
       next: (result: AnimalTypeProjection[]) => {
         this.rowsData = result.map(role => this.transformToTableRow(role));

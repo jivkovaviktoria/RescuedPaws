@@ -171,6 +171,10 @@ export const translations: Translation = {
             },
             'messages': {
                 'delete-confirmation': 'Сигурни ли сте, че искате да изтриете {0}?'
+            },
+            'rp-table': {
+                'show-active': 'Покажи активни',
+                'show-inactive': 'Покажи неактивни',
             }
         },
         'en': {
@@ -192,6 +196,10 @@ export const translations: Translation = {
             },
             'messages': {
                 'delete-confirmation': 'Are you sure you want to delete {0}?'
+            },
+            'rp-table': {
+                'show-active': 'Show active',
+                'show-inactive': 'Show inactive',
             }
         }
     }

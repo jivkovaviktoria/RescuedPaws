@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {
     MatDialogTitle,
     MatDialogContent,
@@ -49,6 +50,7 @@ import { RpConfirmDeleteComponent } from './rp-controls/rp-dialog/rp-confirm-del
         MatButtonModule,
         MatDialogModule,
         MatExpansionModule,
+        MatSlideToggleModule
     ],
     exports: [
         HomeComponent,

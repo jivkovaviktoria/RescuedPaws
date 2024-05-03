@@ -10,6 +10,7 @@ namespace RescuedPaws.Data
 {
     public class RescuedPawsDbContext : IdentityDbContext<User, Role, string>
     {
+        private bool _showOnlyActive = true;
         public RescuedPawsDbContext(DbContextOptions<RescuedPawsDbContext> options) : base(options)
         { }
 
@@ -28,7 +29,7 @@ namespace RescuedPaws.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            modelBuilder.ApplyQueryFilter<ISoftDeletableEntity>(x => x.IsActive);
+            modelBuilder.ApplyQueryFilter<ISoftDeletableEntity>(x => x.IsActive == this._showOnlyActive);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -36,6 +37,17 @@ namespace RescuedPaws.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.AddInterceptors(new AuditingInterceptor());
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (this._showOnlyActive == false) this._showOnlyActive = true;
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public void DisableSoftDeleteFilter()
+        {
+            this._showOnlyActive = false;
         }
     }
 }

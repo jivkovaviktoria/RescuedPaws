@@ -6,18 +6,21 @@ import { ApiEndpoints } from '../utilities/constants/common/api-endpoints.consta
 import { AuthResponse } from './response-models/authentication/authResponse';
 import { BaseService } from './common/base.service';
 import { UserDataService } from './common/user-data.service';
+import { RpTableService } from './common/rp-table.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService extends BaseService{
+export class AuthenticationService extends BaseService {
   private router: Router;
   private userDataService: UserDataService;
 
   constructor(http: HttpClient,
               router: Router,
-              userDataService: UserDataService) {
-    super(http);
+              userDataService: UserDataService,
+              rpTableService: RpTableService) {
+    super(http, rpTableService);
+    
     this.router = router;
     this.userDataService = userDataService;
   }
@@ -31,7 +34,7 @@ export class AuthenticationService extends BaseService{
     this.router.navigate(['/home']);
   }
 
-  public async login(authRequest: {email: string, password: string}): Promise<void> {
+  public async login(authRequest: { email: string, password: string }): Promise<void> {
     const body = {
       email: authRequest.email,
       password: authRequest.password
@@ -41,13 +44,13 @@ export class AuthenticationService extends BaseService{
       next: (result: AuthResponse) => {
         sessionStorage.setItem('bearer-token', result.accessToken);
         this.userDataService.setUserRoutePermissions();
-        
+
         this.router.navigate(['/home']);
       }
     });
   }
 
-  public async register(authRequest: {username: string, email: string, password: string}): Promise<void> {
+  public async register(authRequest: { username: string, email: string, password: string }): Promise<void> {
     const body = {
       email: authRequest.email,
       password: authRequest.password

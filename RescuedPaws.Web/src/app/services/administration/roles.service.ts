@@ -20,8 +20,10 @@ export class RolesService extends BaseService {
      * @returns An Observable that emits an array of RoleProjection objects.
      */
     public getRoles(): Observable<RoleProjection[]> {
+        const params = {showOnlyActive: this._rpTableService.showOnlyActive};
+
         const result = this.http.get<RoleProjection[]>(
-            `${ApiEndpoints.base}${ApiEndpoints.administration.getRoles}`
+            `${ApiEndpoints.base}${ApiEndpoints.administration.getRoles}`, {params}
         );
 
         return result;
