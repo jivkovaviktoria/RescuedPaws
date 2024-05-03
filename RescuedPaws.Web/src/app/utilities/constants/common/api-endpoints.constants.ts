@@ -18,8 +18,12 @@ export const ApiEndpoints = {
         'unassignToUser': '/Administration/UnassignFromUser',
         'getAnimalTypes': '/Administration/AnimalTypes',
         'getAnimalType': '/Administration/AnimalType',
+        'deleteAnimalType': '/Administration/AnimalType',
+        'addOrUpdateAnimalType': '/Administration/AnimalType',
         'getAnimalSizes': '/Administration/AnimalSizes',
         'getAnimalSize': '/Administration/AnimalSize',
+        'addOrUpdateAnimalSize': '/Administration/AnimalSize',
+        'deleteAnimalSize': '/Administration/AnimalSize',
     },
     'nomenclatures': {
         'users': '/Nomenclatures/Users'

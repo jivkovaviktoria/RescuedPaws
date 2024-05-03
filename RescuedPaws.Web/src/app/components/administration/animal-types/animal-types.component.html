@@ -1,6 +1,9 @@
 <div class="p-3 bg-white">
     <rp-table [columns]="columnsData" 
               [data]="rowsData"
-              (onViewClick)="openViewDialog($event)">
+              (onViewClick)="openViewDialog($event)"
+              (onEditClick)="openEditDialog($event)"
+              (onAddClick)="openAddDialog($event)"
+              (onDeleteClick)="openDeleteConfirmationDialog($event)">
     </rp-table>
 </div>

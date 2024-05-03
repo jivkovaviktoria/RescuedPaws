@@ -158,6 +158,8 @@ export const translations: Translation = {
                 'posts': 'Публикации',
                 'roles': 'Роли',
                 'role': 'Роля',
+                'animalTypes': 'Типове животни',
+                'animalType': 'Тип животно',
                 'organizations': 'Организации',
                 'events': 'Събития'
             },
@@ -177,6 +179,8 @@ export const translations: Translation = {
                 'posts': 'Posts',
                 'roles': 'Roles',
                 'role': 'Role',
+                'animalTypes': 'Animal Types',
+                'animalType': 'Animal Type',
                 'organizations': 'Organizations',
                 'events': 'Events'
             },

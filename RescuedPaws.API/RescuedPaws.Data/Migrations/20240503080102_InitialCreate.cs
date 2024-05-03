@@ -12,7 +12,7 @@ namespace RescuedPaws.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AnimalSize",
+                name: "AnimalSizes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -25,11 +25,11 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnimalSize", x => x.Id);
+                    table.PrimaryKey("PK_AnimalSizes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnimalType",
+                name: "AnimalTypes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -42,7 +42,7 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnimalType", x => x.Id);
+                    table.PrimaryKey("PK_AnimalTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,6 +50,10 @@ namespace RescuedPaws.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -87,7 +91,7 @@ namespace RescuedPaws.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Town",
+                name: "Towns",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -95,7 +99,7 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Town", x => x.Id);
+                    table.PrimaryKey("PK_Towns", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,7 +209,7 @@ namespace RescuedPaws.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Locations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -214,16 +218,16 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.PrimaryKey("PK_Locations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Location_Town_TownID",
+                        name: "FK_Locations_Towns_TownID",
                         column: x => x.TownID,
-                        principalTable: "Town",
+                        principalTable: "Towns",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -240,16 +244,16 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_Location_LocationID",
+                        name: "FK_Events_Locations_LocationID",
                         column: x => x.LocationID,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Post",
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -264,21 +268,21 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Post_AspNetUsers_UserID",
+                        name: "FK_Posts_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Post_Location_LocationID",
+                        name: "FK_Posts_Locations_LocationID",
                         column: x => x.LocationID,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventUser",
+                name: "EventUsers",
                 columns: table => new
                 {
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -286,16 +290,16 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventUser", x => new { x.UserID, x.EventID });
+                    table.PrimaryKey("PK_EventUsers", x => new { x.UserID, x.EventID });
                     table.ForeignKey(
-                        name: "FK_EventUser_AspNetUsers_UserID",
+                        name: "FK_EventUsers_AspNetUsers_UserID",
                         column: x => x.UserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_EventUser_Event_EventID",
+                        name: "FK_EventUsers_Events_EventID",
                         column: x => x.EventID,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id");
                 });
 
@@ -321,24 +325,24 @@ namespace RescuedPaws.Data.Migrations
                 {
                     table.PrimaryKey("PK_AnimalData", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AnimalData_AnimalSize_SizeID",
+                        name: "FK_AnimalData_AnimalSizes_SizeID",
                         column: x => x.SizeID,
-                        principalTable: "AnimalSize",
+                        principalTable: "AnimalSizes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AnimalData_AnimalType_TypeID",
+                        name: "FK_AnimalData_AnimalTypes_TypeID",
                         column: x => x.TypeID,
-                        principalTable: "AnimalType",
+                        principalTable: "AnimalTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AnimalData_Post_PostID",
+                        name: "FK_AnimalData_Posts_PostID",
                         column: x => x.PostID,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SuccessStory",
+                name: "SuccessStories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -353,9 +357,9 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SuccessStory", x => x.Id);
+                    table.PrimaryKey("PK_SuccessStories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SuccessStory_AnimalData_AnimalDataID",
+                        name: "FK_SuccessStories_AnimalData_AnimalDataID",
                         column: x => x.AnimalDataID,
                         principalTable: "AnimalData",
                         principalColumn: "Id");
@@ -375,24 +379,24 @@ namespace RescuedPaws.Data.Migrations
                 {
                     table.PrimaryKey("PK_Image", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Event_EventID",
+                        name: "FK_Image_Events_EventID",
                         column: x => x.EventID,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Image_Post_PostID",
+                        name: "FK_Image_Posts_PostID",
                         column: x => x.PostID,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Image_SuccessStory_SuccessStoryID",
+                        name: "FK_Image_SuccessStories_SuccessStoryID",
                         column: x => x.SuccessStoryID,
-                        principalTable: "SuccessStory",
+                        principalTable: "SuccessStories",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Video",
+                name: "Videos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -402,16 +406,16 @@ namespace RescuedPaws.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Video", x => x.Id);
+                    table.PrimaryKey("PK_Videos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Video_Post_PostID",
+                        name: "FK_Videos_Posts_PostID",
                         column: x => x.PostID,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Video_SuccessStory_SuccessStoryID",
+                        name: "FK_Videos_SuccessStories_SuccessStoryID",
                         column: x => x.SuccessStoryID,
-                        principalTable: "SuccessStory",
+                        principalTable: "SuccessStories",
                         principalColumn: "Id");
                 });
 
@@ -471,13 +475,13 @@ namespace RescuedPaws.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_LocationID",
-                table: "Event",
+                name: "IX_Events_LocationID",
+                table: "Events",
                 column: "LocationID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventUser_EventID",
-                table: "EventUser",
+                name: "IX_EventUsers_EventID",
+                table: "EventUsers",
                 column: "EventID");
 
             migrationBuilder.CreateIndex(
@@ -498,34 +502,34 @@ namespace RescuedPaws.Data.Migrations
                 column: "SuccessStoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_TownID",
-                table: "Location",
+                name: "IX_Locations_TownID",
+                table: "Locations",
                 column: "TownID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_LocationID",
-                table: "Post",
+                name: "IX_Posts_LocationID",
+                table: "Posts",
                 column: "LocationID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_UserID",
-                table: "Post",
+                name: "IX_Posts_UserID",
+                table: "Posts",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SuccessStory_AnimalDataID",
-                table: "SuccessStory",
+                name: "IX_SuccessStories_AnimalDataID",
+                table: "SuccessStories",
                 column: "AnimalDataID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Video_PostID",
-                table: "Video",
+                name: "IX_Videos_PostID",
+                table: "Videos",
                 column: "PostID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Video_SuccessStoryID",
-                table: "Video",
+                name: "IX_Videos_SuccessStoryID",
+                table: "Videos",
                 column: "SuccessStoryID");
         }
 
@@ -548,43 +552,43 @@ namespace RescuedPaws.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "EventUser");
+                name: "EventUsers");
 
             migrationBuilder.DropTable(
                 name: "Image");
 
             migrationBuilder.DropTable(
-                name: "Video");
+                name: "Videos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Events");
 
             migrationBuilder.DropTable(
-                name: "SuccessStory");
+                name: "SuccessStories");
 
             migrationBuilder.DropTable(
                 name: "AnimalData");
 
             migrationBuilder.DropTable(
-                name: "AnimalSize");
+                name: "AnimalSizes");
 
             migrationBuilder.DropTable(
-                name: "AnimalType");
+                name: "AnimalTypes");
 
             migrationBuilder.DropTable(
-                name: "Post");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "Town");
+                name: "Towns");
         }
     }
 }

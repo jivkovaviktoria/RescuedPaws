@@ -1,4 +1,5 @@
-﻿using RescuedPaws.Core.Contracts.Common;
+﻿using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Contracts.Common;
 using RescuedPaws.Core.Models.Common;
 using RescuedPaws.Data;
 using System;
@@ -11,7 +12,7 @@ namespace RescuedPaws.Core.Services.Common
 {
     public class NomenclaturesService : BaseService, INomenclaturesService
     {
-        public NomenclaturesService(RescuedPawsDbContext dbContext) : base(dbContext)
+        public NomenclaturesService(RescuedPawsDbContext dbContext, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         {}
 
         public async Task<List<Nomenclature<string>>> GetUsers()

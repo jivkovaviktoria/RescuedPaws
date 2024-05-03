@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses.ViewModels;
 using RescuedPaws.Core.Services.Common;
@@ -14,7 +15,7 @@ namespace RescuedPaws.Core.Services.Administration
 {
     public class UsersService : BaseService, IUsersService
     {
-        public UsersService(RescuedPawsDbContext dbContext) : base(dbContext)
+        public UsersService(RescuedPawsDbContext dbContext, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         { }
 
         public async Task<List<UserViewModel>> GetUsers()

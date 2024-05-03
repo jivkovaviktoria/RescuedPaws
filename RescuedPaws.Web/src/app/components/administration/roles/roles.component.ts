@@ -11,7 +11,6 @@ import { DialogService } from 'src/app/services/common/dialog.service';
 import { Nomenclature } from 'src/app/services/response-models/common/nomenclature';
 import { NomenclaturesService } from 'src/app/services/common/nomenclatures.service';
 import { RoleProjection } from 'src/app/services/response-models/administration/roles/roleProjection';
-import { RpTranslatePipe } from 'src/app/pipes/rpTranslate.pipe';
 import { RpTranslateService } from 'src/app/services/rp-translate.service';
 
 @Component({

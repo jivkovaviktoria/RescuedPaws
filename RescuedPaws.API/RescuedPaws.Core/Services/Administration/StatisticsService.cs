@@ -1,4 +1,5 @@
-﻿using RescuedPaws.Core.Contracts.Administration;
+﻿using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Models.Administration.Responses;
 using RescuedPaws.Core.Models.Common.Requests;
 using RescuedPaws.Core.Services.Common;
@@ -15,7 +16,7 @@ namespace RescuedPaws.Core.Services.Administration
 {
     public class StatisticsService : BaseService, IStatisticsService
     {
-        public StatisticsService(RescuedPawsDbContext dbContext) : base(dbContext)
+        public StatisticsService(RescuedPawsDbContext dbContext, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         { }
 
         public async Task<UserCountResponseModel> GetUserCountAsync(DateRequestFilter filter)

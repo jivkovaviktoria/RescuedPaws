@@ -1,4 +1,5 @@
-﻿using RescuedPaws.Core.Contracts.Common;
+﻿using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Contracts.Common;
 using RescuedPaws.Core.Enums;
 using RescuedPaws.Data;
 using RescuedPaws.Utilities.Enums;
@@ -12,7 +13,7 @@ namespace RescuedPaws.Core.Services.Common
 {
     public class UserDataService : BaseService, IUserDataService
     {
-        public UserDataService(RescuedPawsDbContext dbContext) : base(dbContext)
+        public UserDataService(RescuedPawsDbContext dbContext, ILogger<BaseService> baseLogger) : base(dbContext, baseLogger)
         { }
 
         public string[] GetUserPermissions(string userId)

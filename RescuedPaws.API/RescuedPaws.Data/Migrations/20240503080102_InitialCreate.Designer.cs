@@ -12,8 +12,8 @@ using RescuedPaws.Data;
 namespace RescuedPaws.Data.Migrations
 {
     [DbContext(typeof(RescuedPawsDbContext))]
-    [Migration("20240407200725_AddedCustomRole")]
-    partial class AddedCustomRole
+    [Migration("20240503080102_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

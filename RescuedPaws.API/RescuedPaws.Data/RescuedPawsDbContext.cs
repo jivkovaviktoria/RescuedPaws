@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RescuedPaws.Data.Configuration.Interceptors;
+using RescuedPaws.Data.Contracts.Entities;
 using RescuedPaws.Data.Entities;
+using RescuedPaws.Data.Extensions;
 using System.Reflection;
 
 namespace RescuedPaws.Data
@@ -26,6 +28,8 @@ namespace RescuedPaws.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyQueryFilter<ISoftDeletableEntity>(x => x.IsActive);
+
             base.OnModelCreating(modelBuilder);
         }
 

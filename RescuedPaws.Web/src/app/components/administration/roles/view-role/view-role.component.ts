@@ -107,7 +107,10 @@ export class ViewRoleComponent extends RpDialogComponent implements OnInit, OnDe
     if (this.role == null) this.role = new RoleFormModel();
 
     this.role.name = this.form.get('nameControl')?.value;
-    this.role.id = this.model['id'];
+
+    if(this.model != null){
+      this.role.id = this.model['id'];
+    }
 
     this._rolesService.addOrUpdateRole(this.role).subscribe({
       next: (result: RoleFormModel) => {

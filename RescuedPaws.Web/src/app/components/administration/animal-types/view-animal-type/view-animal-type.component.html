@@ -1,10 +1,9 @@
 <div class="p-4 mx-auto bg-white shadow-lg rounded-lg">
-    <div class="mb-6">
+    <div class="mb-6" [formGroup]="form">
         <label for="name" class="block text-gray-800 text-sm font-semibold mb-2">
             Name:
         </label>
-        <input type="text" id="name" name="name" placeholder="Enter name" [disabled]="isReadonly"
-            [value]="model['name']"
+        <input type="text" placeholder="Enter name" formControlName="nameControl"
             class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
     </div>
 </div>

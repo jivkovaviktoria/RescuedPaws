@@ -1,5 +1,7 @@
-﻿using RescuedPaws.Core.Models.Administration.Responses.AnimalTypes;
+﻿using Microsoft.Extensions.Logging;
+using RescuedPaws.Core.Models.Administration.Responses.AnimalTypes;
 using RescuedPaws.Core.Services.Administration;
+using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Data.Entities;
 using RescuedPaws.UnitTests.Randomizers;
 using System;
@@ -15,10 +17,10 @@ namespace RescuedPaws.UnitTests.Services
         private readonly AnimalTypeRandomizer _animalTypeRandomizer;
         private readonly AnimalTypesService _animalTypesService;
 
-        public AnimalTypesServiceUnitTests()
+        public AnimalTypesServiceUnitTests(ILogger<AnimalTypesService> logger, ILogger<BaseService> baseLogger)
         {
             _animalTypeRandomizer = new AnimalTypeRandomizer();
-            _animalTypesService = new AnimalTypesService(this.DbContext);
+            _animalTypesService = new AnimalTypesService(this.DbContext, logger, baseLogger);
         }
 
         [Fact]

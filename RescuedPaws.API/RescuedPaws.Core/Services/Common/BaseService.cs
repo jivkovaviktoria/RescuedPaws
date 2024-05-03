@@ -35,6 +35,7 @@ namespace RescuedPaws.Core.Services.Common
 
         public async Task<bool> SoftDeleteAsync<T>(Guid id) where T : class, ISoftDeletableEntity, IEntity
         {
+            
             try
             {
                 var entity = await _dbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
@@ -47,7 +48,7 @@ namespace RescuedPaws.Core.Services.Common
             }
             catch (Exception ex)
             {
-                this._logger.LogError($"Error deleting animal type with ID {id}: {ex.Message}");
+                this._logger.LogError($"Error deleting entity with ID {id}: {ex.Message}");
                 return false;
             }
 
