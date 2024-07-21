@@ -18,14 +18,37 @@ import { RpTranslateService } from 'src/app/services/rp-translate.service';
 })
 export class AnimalSizesComponent extends BaseComponent implements OnInit {
   public animalSizes: AnimalSizeProjection[] = [];
-  public columnsData!: TableColumn[];
-  public rowsData!: TableRow[];
+  public columnsData: TableColumn[] = [];
+  public rowsData: TableRow[] = [];
 
-  private readonly _dialog;
-  private readonly _dialogService: DialogService;
-  private readonly _translateService: RpTranslateService;
-  private readonly _animalSizesService: AnimalSizesService;
+  /**
+   * Service for dialog operations.
+   */
+  protected dialogService: DialogService;
 
+  /**
+   * Service for animal size operations.
+   */
+  protected animalSizesService: AnimalSizesService;
+
+  /**
+   * Service for translations.
+   */
+  protected translateService: RpTranslateService;
+
+  /**
+   * Material Dialog service.
+   */
+  protected dialog: MatDialog;
+
+  /**
+   * Creates an instance of AnimalSizesComponent.
+   * @param animalSizesService Service for animal size operations.
+   * @param dialogService Service for dialog operations.
+   * @param translateService Service for translations.
+   * @param languageService Service for language operations.
+   * @param dialog Material Dialog service.
+   */
   constructor(
     animalSizesService: AnimalSizesService,
     dialogService: DialogService,
@@ -34,92 +57,124 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
     dialog: MatDialog
   ) {
     super(languageService);
-
-    this._dialogService = dialogService;
-    this._animalSizesService = animalSizesService;
-    this._dialog = dialog;
-    this._translateService = translateService;
+    this.dialogService = dialogService;
+    this.animalSizesService = animalSizesService;
+    this.dialog = dialog;
+    this.translateService = translateService;
   }
 
+  /**
+   * Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
+   */
   public override ngOnInit(): void {
     super.ngOnInit();
     this.loadAnimalSizes();
   }
 
-  public openViewDialog(event: any): void {
-    this._dialogService.setData(event);
-
-    this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to view animal size details.
+   * @param event Event data.
+   */
+  public openViewDialog(event: TableRow): void {
+    this.dialogService.setData(event);
+    this.dialog.open(RpDialogComponent, {
       height: '30%',
       width: '25%',
       panelClass: 'view-dialog',
       data: {
         component: ViewAnimalSizeComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
         isReadonly: true
       }
     });
   }
 
-  public openEditDialog(event: any): void {
-    this._dialogService.setData(event);
-
-    this._dialog.open(RpDialogComponent, {
-      height: '77%',
-      width: '50%',
+  /**
+   * Opens a dialog to edit animal size details.
+   * @param event Event data.
+   */
+  public openEditDialog(event: TableRow): void {
+    this.dialogService.setData(event);
+    this.dialog.open(RpDialogComponent, {
+      height: '30%',
+      width: '25%',
       panelClass: 'edit-dialog',
       data: {
         component: ViewAnimalSizeComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
         isReadonly: false,
       }
     });
   }
 
-  public openAddDialog(event: any): void {
-    this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to add a new animal size.
+   * @param event Event data.
+   */
+  public openAddDialog(): void {
+    this.dialog.open(RpDialogComponent, {
       height: '77%',
       width: '50%',
       panelClass: 'add-dialog',
       data: {
         component: ViewAnimalSizeComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
         isReadonly: false,
       }
     });
   }
 
-  public openDeleteConfirmationDialog(event: any): void {
-    const dialogRef = this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to confirm deletion of an animal size.
+   * @param event Event data.
+   */
+  public openDeleteConfirmationDialog(event: TableRow): void {
+    const dialogRef = this.dialog.open(RpDialogComponent, {
       height: '15%',
       width: '35%',
       panelClass: 'delete-dialog',
       data: {
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event.name)}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event['name'])}`,
         isReadonly: false,
-        saveButtonText: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
+        saveButtonText: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
       }
     });
 
     dialogRef.componentInstance.onSave.subscribe(() => {
-      this._animalSizesService.delete(event.id).subscribe({
+      this.animalSizesService.delete(event['id']).subscribe({
         next: () => {
-          const indexOfAnimalSize = this.rowsData.findIndex(as => as['id'] === event.id);
-          this.rowsData.splice(indexOfAnimalSize, 1);
+          const indexOfAnimalSize = this.rowsData.findIndex(as => as['id'] === event['id']);
+          if (indexOfAnimalSize !== -1) {
+            this.rowsData.splice(indexOfAnimalSize, 1);
+          }
+        },
+        error: (error: any) => {
+          console.error('Error deleting animal size:', error);
         }
       });
     });
   }
 
+  /**
+   * Loads the animal sizes from the service.
+   */
   public loadAnimalSizes(): void {
-    this._animalSizesService.getAnimalSizes().subscribe({
+    this.animalSizesService.getAnimalSizes().subscribe({
       next: (result: AnimalSizeProjection[]) => {
-        this.rowsData = result.map(role => this.transformToTableRow(role));
+        this.rowsData = result.map(animalSize => this.transformToTableRow(animalSize));
         this.columnsData = this.createColumnsBasedOnData(result[0]);
+      },
+      error: (error: any) => {
+        console.error('Error loading animal sizes:', error);
       }
     });
   }
 
+  /**
+   * Transforms an animal size object to a table row format.
+   * @param animalSize The animal size object.
+   * @returns A table row object.
+   */
   private transformToTableRow(animalSize: AnimalSizeProjection): Record<string, any> {
     return {
       id: animalSize.id,
@@ -127,6 +182,11 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
     };
   }
 
+  /**
+   * Creates table columns based on the data keys.
+   * @param data An example data object to derive columns from.
+   * @returns An array of table columns.
+   */
   private createColumnsBasedOnData(data: AnimalSizeProjection): TableColumn[] {
     return Object.keys(data).map(key => ({
       header: this.formatHeader(key),
@@ -134,6 +194,11 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
     }));
   }
 
+  /**
+   * Formats a header string.
+   * @param key The key to format.
+   * @returns A formatted header string.
+   */
   private formatHeader(key: string): string {
     return key.charAt(0).toUpperCase() + key.slice(1);
   }

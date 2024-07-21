@@ -2,6 +2,10 @@
     --mdc-dialog-container-color: white;
 }
 
+::ng-deep .mat-mdc-dialog-surface {
+    overflow: hidden !important;
+}
+
 button {
     color: black !important;
 }

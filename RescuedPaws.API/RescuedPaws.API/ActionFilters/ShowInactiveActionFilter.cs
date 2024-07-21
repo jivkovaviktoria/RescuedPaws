@@ -7,9 +7,7 @@ namespace RescuedPaws.API.ActionFilters
     public class ShowInactiveActionFilter : IActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext context)
-        {
-            
-        }
+        { }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {

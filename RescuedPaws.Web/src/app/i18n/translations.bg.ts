@@ -214,6 +214,19 @@ export const translations: Translation = {
                 'title': 'Profile settings'
             }
         }
+    },
+    'global-errors': {
+        'bg': {
+            'error': 'Грешка',
+            'error-loading-data': 'Възникна грешка при зареждане на данните. Моля опитайте отново по-късно.',
+            'error-saving-data': 'Възникна грешка при запазване на данните. Моля опитайте отново по-късно.'
+        },
+        'en': {
+            'error': 'Error',
+            'error-loading-data': 'An error occurred while loading the data. Please try again later.',
+            'error-saving-data': 'An error occurred while saving the data. Please try again later.'
+        }
+    
     }
 }
 

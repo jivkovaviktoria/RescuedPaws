@@ -1,6 +1,6 @@
-import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TableRow } from './interfaces/table-row.interface';
-import { TableColumn } from './interfaces/table-column.interface'
+import { TableColumn } from './interfaces/table-column.interface';
 import { RpTableService } from 'src/app/services/common/rp-table.service';
 import { BaseComponent } from '../../base/base.component';
 import { LanguageService } from 'src/app/services/language.service';
@@ -12,97 +12,122 @@ import { RpTranslateService } from 'src/app/services/rp-translate.service';
   styleUrls: ['./rp-table.component.css']
 })
 export class RpTableComponent extends BaseComponent implements OnInit, AfterViewChecked {
-  public show: string = '';
+  @Input() public columns: TableColumn[] = [];
+  @Input() public data: TableRow[] = [];
+  @Input() public showAddButton: boolean = true;
+  @Input() public showEditButton: boolean = true;
+  @Input() public showDeleteButton: boolean = true;
+  @Input() public showViewButton: boolean = true;
 
-  @Input()
-  columns: TableColumn[] = [];
-
-  @Input()
-  data: TableRow[] = [];
-
-  @Input()
-  public showAddButton: boolean = true;
-
-  @Input()
-  public showEditButton: boolean = true;
-
-  @Input()
-  public showDeleteButton: boolean = true;
-
-  @Input()
-  public showViewButton: boolean = true;
-
-  @Output()
-  public onViewClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
-
-  @Output()
-  public onEditClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
-
-  @Output()
-  public onDeleteClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
-
-  @Output()
-  public onAddClick: EventEmitter<void> = new EventEmitter<void>();
-
-  @Output()
-  public onShowOnlyActiveChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public onViewClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
+  @Output() public onEditClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
+  @Output() public onDeleteClick: EventEmitter<TableRow> = new EventEmitter<TableRow>();
+  @Output() public onAddClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public onShowOnlyActiveChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public showActiveChecked: boolean = true;
   public showText: string = '';
 
-  private readonly _rpTableService: RpTableService;
-  private readonly _rpTranslateService: RpTranslateService;
+  protected rpTableService: RpTableService;
+  protected rpTranslateService: RpTranslateService;
 
+  /**
+   * Creates an instance of RpTableComponent.
+   * @param rpTableService Service for table operations.
+   * @param languageService Service for language operations.
+   * @param rpTranslateService Service for translations.
+   */
   constructor(
     rpTableService: RpTableService,
     languageService: LanguageService,
-    rptranslateService: RpTranslateService
+    rpTranslateService: RpTranslateService
   ) {
     super(languageService);
-
-    this._rpTableService = rpTableService;
-    this._rpTranslateService = rptranslateService;
+    this.rpTableService = rpTableService;
+    this.rpTranslateService = rpTranslateService;
   }
 
+  /**
+   * Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
+   */
   public override ngOnInit(): void {
     super.ngOnInit();
-    this.getShowText();
+    this.updateShowText();
   }
 
+  /**
+   * Angular lifecycle hook that is called after the default change detector has completed checking a component's view.
+   */
   public ngAfterViewChecked(): void {
-    this.columns = this.columns?.filter(x => x.field !== 'id');
+    this.columns = this.columns.filter(column => column.field !== 'id');
   }
 
-  public openViewDialog(data: TableRow): void {
-    this.onViewClick.emit(data);
+  /**
+   * Opens the view dialog for the given row.
+   * @param row The table row data.
+   */
+  public openViewDialog(row: TableRow): void {
+    this.onViewClick.emit(row);
   }
 
-  public openEditDialog(data: TableRow): void {
-    this.onEditClick.emit(data);
+  /**
+   * Opens the edit dialog for the given row.
+   * @param row The table row data.
+   */
+  public openEditDialog(row: TableRow): void {
+    this.onEditClick.emit(row);
   }
 
-  public openDeleteConfirmationDialog(data: TableRow): void {
-    this.onDeleteClick.emit(data);
+  /**
+   * Opens the delete confirmation dialog for the given row.
+   * @param row The table row data.
+   */
+  public openDeleteConfirmationDialog(row: TableRow): void {
+    this.onDeleteClick.emit(row);
   }
 
+  /**
+   * Retrieves the property value from a row based on the given property name.
+   * @param row The table row data.
+   * @param propertyName The property name to retrieve the value for.
+   * @returns The property value.
+   */
   public getPropertyValue(row: any, propertyName: string): any {
     return row[propertyName];
   }
 
+  /**
+   * Reloads the table data based on the active/inactive toggle.
+   * @param event The event data.
+   */
   public reloadData(event: any): void {
-    if (event.checked === false) this._rpTableService.enableShowOnlyActive();
-    else this._rpTableService.disableShowOnlyActive();
+    if (!event.checked) {
+      this.rpTableService.enableShowOnlyActive();
+    } else {
+      this.rpTableService.disableShowOnlyActive();
+    }
 
     this.showActiveChecked = event.checked;
-    this.getShowText();
-
-    this.onShowOnlyActiveChange.emit();
+    this.updateShowText();
+    this.onShowOnlyActiveChange.emit(this.showActiveChecked);
   }
 
+  /**
+   * Gets the text to display for the active/inactive toggle.
+   * @returns The text to display.
+   */
   public getShowText(): string {
-    if(this.showActiveChecked) this.showText = this._rpTranslateService.getTranslation('common', this.selectedLanguage, 'rp-table.show-inactive');
-    else this.showText = this._rpTranslateService.getTranslation('common', this.selectedLanguage, 'rp-table.show-active');
-  
     return this.showText;
+  }
+
+  /**
+   * Updates the text displayed for the active/inactive toggle.
+   */
+  private updateShowText(): void {
+    if (this.showActiveChecked) {
+      this.showText = this.rpTranslateService.getTranslation('common', this.selectedLanguage, 'rp-table.show-inactive');
+    } else {
+      this.showText = this.rpTranslateService.getTranslation('common', this.selectedLanguage, 'rp-table.show-active');
+    }
   }
 }

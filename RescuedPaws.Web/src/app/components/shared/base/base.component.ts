@@ -11,10 +11,7 @@ export class BaseComponent implements OnInit, OnDestroy{
   public selectedLanguage: string = 'bg';
   private languageSubscription!: Subscription;
 
-  private languageService: LanguageService;
-
-  constructor(languageService: LanguageService) {
-    this.languageService = languageService;
+  constructor(protected languageService: LanguageService) {
   }
 
   ngOnInit(): void {

@@ -27,20 +27,4 @@ export class ListComponent extends BaseComponent {
     this._dialog = dialog;
     this._translateService = translateService;
   }
-
-  public sort(something: any): void {
-  }
-
-  public openFilterDialog(): void {
-    this._dialog.open(RpDialogComponent, {
-      height: '50%',
-      width: '75%',
-      panelClass: 'add-dialog',
-      data: {
-        component: FiltersComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.filter')}`,
-        isReadonly: false,
-      }
-    });
-  }
 }

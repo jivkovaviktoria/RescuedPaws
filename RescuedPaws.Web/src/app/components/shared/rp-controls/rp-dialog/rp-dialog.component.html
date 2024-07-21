@@ -1,18 +1,45 @@
-<div class="flex flex-col h-full pb-3 relative">
-    <button class="absolute top-0 right-0 mt-3 mr-3 text-gray-600 hover:text-gray-800 focus:outline-none" (click)="onNoClick()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-    </button>
+<div class="flex justify-center items-center bg-gray-100 pt-[1.5rem] pb-[3rem]">
+    <div class="m-auto">
+        <div>
+            <div class="mt-5 bg-white rounded-lg shadow">
+                <mat-dialog-content class="bg-white overflow-y-scroll flex-grow" *ngIf="data.component">
+                    <ng-container *ngComponentOutlet="data.component"></ng-container>
+                </mat-dialog-content>
 
-    <h1 class="pt-10 text-gray-800 font-bold bg-white text-center">{{title}}</h1>
+                <hr class="mt-4">
 
-    <mat-dialog-content class="bg-white overflow-y-scroll flex-grow" *ngIf="data.component">
-        <ng-container *ngComponentOutlet="data.component"></ng-container>
-    </mat-dialog-content>
-
-    <mat-dialog-actions *ngIf="!data?.isReadonly" class="flex justify-between flex-row items-center p-5">
-        <button mat-button (click)="onNoClick()" class="cancel-button">{{cancelButtonText}}</button>
-        <button mat-button cdkFocusInitial (click)="onSaveClick()" class="save-button">{{saveButtonText}}</button>
-    </mat-dialog-actions>
+                <div class="flex flex-row-reverse p-3">
+                    <div class="flex-initial pl-3">
+                        <button type="button"
+                            class="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-800  focus:outline-none focus:bg-gray-900  transition duration-300 transform active:scale-95 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                                fill="#FFFFFF">
+                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                <path
+                                    d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
+                                    opacity=".3"></path>
+                                <path
+                                    d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z">
+                                </path>
+                            </svg>
+                            <span class="pl-2 mx-1 text-white">Save</span>
+                        </button>
+                    </div>
+                    <div class="flex-initial">
+                        <button type="button"
+                            class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                <path d="M8 9h8v10H8z" opacity=".3"></path>
+                                <path
+                                    d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z">
+                                </path>
+                            </svg>
+                            <span class="pl-2 mx-1">Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

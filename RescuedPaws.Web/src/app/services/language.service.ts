@@ -6,13 +6,19 @@ import { LanguageConstants } from '../utilities/constants/common/language.consta
   providedIn: 'root'
 })
 export class LanguageService {
-
   private languageSource = new BehaviorSubject<string>(LanguageConstants.default);
   public currentLanguage = this.languageSource.asObservable();
-  
+
+  /**
+   * Creates an instance of LanguageService.
+   */
   constructor() { }
 
-  changeLanguage(language: string) {
+  /**
+   * Changes the current language.
+   * @param language The new language to set.
+   */
+  public changeLanguage(language: string): void {
     this.languageSource.next(language);
   }
 }

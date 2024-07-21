@@ -7,13 +7,23 @@ import { RpTableService } from "./rp-table.service";
 })
 export class BaseService {
     protected http: HttpClient;
-    protected readonly _rpTableService: RpTableService;
+    protected _rpTableService: RpTableService;
 
+    /**
+     * Creates an instance of BaseService.
+     * @param http The HttpClient for making HTTP requests.
+     * @param rpTableService The RpTableService for table operations.
+     */
     constructor(http: HttpClient, rpTableService: RpTableService) {
-        this.http = http
+        this.http = http;
         this._rpTableService = rpTableService;
     }
 
+    /**
+     * Converts an object to HttpParams.
+     * @param obj The object to convert.
+     * @returns The HttpParams created from the object.
+     */
     protected toHttpParams(obj: any): HttpParams {
         let params = new HttpParams();
 

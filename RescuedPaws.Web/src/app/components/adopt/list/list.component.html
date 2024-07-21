@@ -1,86 +1,76 @@
 <div class="flex flex-col">
-    <div class="flex flex-row justify-center items-center">
-        <div class="flex flex-row justify-end items-center gap-5 mt-4 mr-12">
-            <div class="flex justify-center items-center">
-                <button mat-button
-                        matTooltip="{{'actions.filter' | rpTranslate:'common':selectedLanguage}}"
-                        matTooltipPosition="above"
-                        (click)="openFilterDialog()"
-                        class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full flex items-center gap-2">
-                    <mat-icon>filter_list</mat-icon>
-                </button>
-            </div>
+    <div class="flex min-w-72 flex-col pt-16 pb-2 pl-16">
+        <p class="text-[#0e141b] tracking-light text-[32px] font-bold leading-tight">Find your new best friend</p>
+        <p class="text-[#4e7397] text-sm font-normal leading-normal pt-1">Adopt a pet near you</p>
+    </div>
 
-            <form class="flex items-center max-w-xl mx-auto">
-                <div class="relative w-full">
-                    <input type="text" 
-                           id="voice-search" 
-                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                           placeholder="Search..." 
-                           required />
-                    <button type="button" 
-                            class="absolute inset-y-0 end-0 flex items-center pe-3">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" 
-                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
-                             fill="none" 
-                             viewBox="0 0 16 20">
-                            <path stroke="currentColor" 
-                                  stroke-linecap="round" 
-                                  stroke-linejoin="round" 
-                                  stroke-width="2" 
-                                  d="M15 7v3a5.006 5.006 0 0 1-5 5H6a5.006 5.006 0 0 1-5-5V7m7 9v3m-3 0h6M7 1h2a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3Z"/>
-                        </svg>
-                    </button>
-                </div>
-                <button type="submit" 
-                        class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-[#6699CC] rounded-lg border border-blue-400 hover:bg-[#3f6c99] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg class="w-4 h-4 me-2" 
-                         aria-hidden="true" 
-                         xmlns="http://www.w3.org/2000/svg" 
-                         fill="none" 
-                         viewBox="0 0 20 20">
-                        <path stroke="currentColor" 
-                              stroke-linecap="round" 
-                              stroke-linejoin="round" 
-                              stroke-width="2" 
-                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+    <div class="px-16 py-3">
+        <label class="flex flex-col min-w-40 h-12 w-full">
+            <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+                <div class="text-[#4e7397] flex border-none bg-[#e7edf3] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                    data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                        viewBox="0 0 256 256">
+                        <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                        </path>
                     </svg>
-                </button>
-            </form>
+                </div>
+                <input placeholder="Search for pets by breed, age, size, etc..."
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0e141b] focus:outline-0 focus:ring-0 border-none bg-[#e7edf3] focus:border-none h-full placeholder:text-[#4e7397] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                    value="" />
+            </div>
+        </label>
+    </div>
 
-            <div class="flex justify-center items-center">
-                <button mat-raised-button 
-                        matTooltip="{{'actions.add-post' | rpTranslate:'common':selectedLanguage}}"
-                        matTooltipPosition="above"
-                        class="bg-[#6699CC] hover:bg-[#3f6c99] text-white font-bold py-2 px-4 rounded-full flex items-center gap-2">
-                    <mat-icon>add</mat-icon>
-                    <span>{{'actions.add-post' | rpTranslate:'common':selectedLanguage}}</span>
-                </button>
-            </div>
-            <div class="flex justify-center items-center">
-                <button mat-button 
-                        [matMenuTriggerFor]="sortMenu" 
-                        matTooltip="{{'actions.sort' | rpTranslate:'common':selectedLanguage}}"
-                        matTooltipPosition="above"
-                        class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full flex items-center gap-2">
-                    <mat-icon>sort</mat-icon>
-                </button>
-                <mat-menu #sortMenu="matMenu">
-                    <button mat-menu-item (click)="sort('date')">Date</button>
-                    <button mat-menu-item (click)="sort('age')">Age</button>
-                    <button mat-menu-item (click)="sort('likes')">Likes</button>
-                </mat-menu>
-            </div>
+    <div class="flex gap-3 px-16 py-3 flex-wrap pr-4">
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Dog</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Cat</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Rabbit</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Bird</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Horse</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Reptile</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Small Mammal</p>
+        </div>
+        <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#e7edf3] pl-4 pr-4">
+            <p class="text-[#0e141b] text-sm font-medium leading-normal">Farm Animal</p>
         </div>
     </div>
-    
-    
-    <div class="card-grid">
+
+    <h2 class="text-[#0e141b] text-[22px] px-16 font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Featured pets</h2>
+
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-3 py-4 px-16">
+        <div *ngFor="let card of cards" class="flex flex-col gap-3 pb-3">
+            <div
+              class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+              style='background-image: url("https://cdn.usegalileo.ai/stability/50c606df-c499-4bbb-b6b2-5221cfc4cc3a.png");'
+            ></div>
+            <div>
+              <p class="text-[#0e141b] text-base font-medium leading-normal">Milo</p>
+              <p class="text-[#4e7397] text-sm font-normal leading-normal">Dog, 2 years, Male</p>
+            </div>
+          </div>
+    </div>
+    <!-- <div class="card-grid">
+
         <card *ngFor="let card of cards">
-            <img [src]="'https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg'" 
-                 alt="Card Image">
+            <img [src]="'https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg'"
+                alt="Card Image">
             <h2>Тони търси дом</h2>
             <p>{{'2024-05-03' | date}}</p>
         </card>
-    </div>
+    </div> -->
 </div>

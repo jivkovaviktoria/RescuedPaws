@@ -21,11 +21,19 @@ export class AnimalTypesComponent extends BaseComponent implements OnInit {
   public columnsData!: TableColumn[];
   public rowsData!: TableRow[];
 
-  private readonly _dialog;
-  private readonly _dialogService: DialogService;
-  private readonly _animalTypesService: AnimalTypesService;
-  private readonly _translateService: RpTranslateService;
+  protected dialogService: DialogService;
+  protected animalTypesService: AnimalTypesService;
+  protected translateService: RpTranslateService;
+  protected dialog: MatDialog;
 
+  /**
+   * Creates an instance of AnimalTypesComponent.
+   * @param animalTypesService Service for animal type operations.
+   * @param dialogService Service for dialog operations.
+   * @param languageService Service for language operations.
+   * @param translateService Service for translations.
+   * @param dialog Material Dialog service.
+   */
   constructor(
     animalTypesService: AnimalTypesService,
     dialogService: DialogService,
@@ -34,92 +42,126 @@ export class AnimalTypesComponent extends BaseComponent implements OnInit {
     dialog: MatDialog
   ) {
     super(languageService);
-
-    this._dialogService = dialogService;
-    this._animalTypesService = animalTypesService;
-    this._translateService = translateService;
-    this._dialog = dialog;
+    this.dialogService = dialogService;
+    this.animalTypesService = animalTypesService;
+    this.translateService = translateService;
+    this.dialog = dialog;
   }
 
+  /**
+   * Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
+   */
   public override ngOnInit(): void {
     super.ngOnInit();
     this.loadAnimalTypes();
   }
 
-  public openViewDialog(event: any): void {
-    this._dialogService.setData(event);
-
-    this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to view animal type details.
+   * @param event Event data.
+   */
+  public openViewDialog(event: TableRow): void {
+    this.dialogService.setData(event);
+    this.dialog.open(RpDialogComponent, {
       height: '30%',
       width: '25%',
       panelClass: 'view-dialog',
-      data: { 
-        component: ViewAnimalTypeComponent, 
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
-        isReadonly: true 
+      data: {
+        component: ViewAnimalTypeComponent,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
+        isReadonly: true
       }
     });
   }
 
-  public openEditDialog(event: any): void {
-    this._dialogService.setData(event);
-
-    this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to edit animal type details.
+   * @param event Event data.
+   */
+  public openEditDialog(event: TableRow): void {
+    this.dialogService.setData(event);
+    this.dialog.open(RpDialogComponent, {
       height: '77%',
       width: '50%',
       panelClass: 'edit-dialog',
       data: {
         component: ViewAnimalTypeComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
         isReadonly: false,
       }
     });
   }
 
-  public openAddDialog(event: any): void {
-    this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to add a new animal type.
+   * @param event Event data.
+   */
+  public openAddDialog(): void {
+    this.dialog.open(RpDialogComponent, {
       height: '77%',
       width: '50%',
       panelClass: 'add-dialog',
       data: {
         component: ViewAnimalTypeComponent,
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this._translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalType')}`,
         isReadonly: false,
       }
     });
   }
 
-  public openDeleteConfirmationDialog(event: any): void {
-    const dialogRef = this._dialog.open(RpDialogComponent, {
+  /**
+   * Opens a dialog to confirm deletion of an animal type.
+   * @param event Event data.
+   */
+  public openDeleteConfirmationDialog(event: TableRow): void {
+    const dialogRef = this.dialog.open(RpDialogComponent, {
       height: '15%',
       width: '35%',
       panelClass: 'delete-dialog',
       data: {
-        title: `${this._translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event.name)}`,
+        title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event['name'])}`,
         isReadonly: false,
-        saveButtonText: `${this._translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
+        saveButtonText: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
       }
     });
 
     dialogRef.componentInstance.onSave.subscribe(() => {
-      this._animalTypesService.delete(event.id).subscribe({
+      this.animalTypesService.delete(event['id']).subscribe({
         next: () => {
-          const indexOfAnimalType = this.rowsData.findIndex(at => at['id'] === event.id);
-          this.rowsData.splice(indexOfAnimalType, 1);
+          const indexOfAnimalType = this.rowsData.findIndex(at => at['id'] === event['id']);
+          if (indexOfAnimalType !== -1) {
+            this.rowsData.splice(indexOfAnimalType, 1);
+          }
+        },
+        error: (error: any) => {
+          console.error('Error deleting animal type:', error);
+          // Handle error, e.g., display an error message
         }
       });
     });
   }
 
+  /**
+   * Loads the animal types from the service.
+   */
   public loadAnimalTypes(): void {
-    this._animalTypesService.getAnimalTypes().subscribe({
+    this.animalTypesService.getAnimalTypes().subscribe({
       next: (result: AnimalTypeProjection[]) => {
-        this.rowsData = result.map(role => this.transformToTableRow(role));
+        this.rowsData = result.map(type => this.transformToTableRow(type));
         this.columnsData = this.createColumnsBasedOnData(result[0]);
+      },
+      error: (error: any) => {
+        console.error('Error loading animal types:', error);
+        // Handle error, e.g., display an error message
       }
     });
   }
 
+  /**
+   * Transforms an animal type object to a table row format.
+   * @param animalType The animal type object.
+   * @returns A table row object.
+   */
   private transformToTableRow(animalType: AnimalTypeProjection): Record<string, any> {
     return {
       id: animalType.id,
@@ -127,6 +169,11 @@ export class AnimalTypesComponent extends BaseComponent implements OnInit {
     };
   }
 
+  /**
+   * Creates table columns based on the data keys.
+   * @param data An example data object to derive columns from.
+   * @returns An array of table columns.
+   */
   private createColumnsBasedOnData(data: AnimalTypeProjection): TableColumn[] {
     return Object.keys(data).map(key => ({
       header: this.formatHeader(key),
@@ -134,6 +181,11 @@ export class AnimalTypesComponent extends BaseComponent implements OnInit {
     }));
   }
 
+  /**
+   * Formats a header string.
+   * @param key The key to format.
+   * @returns A formatted header string.
+   */
   private formatHeader(key: string): string {
     return key.charAt(0).toUpperCase() + key.slice(1);
   }

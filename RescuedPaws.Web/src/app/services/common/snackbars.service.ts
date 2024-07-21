@@ -5,18 +5,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     providedIn: 'root'
 })
 export class SnackbarsService {
-    private _snackBar!: MatSnackBar;
+    constructor(private snackBar: MatSnackBar) { }
 
-    constructor(
-        snackBar: MatSnackBar
-    ) {
-        this._snackBar = snackBar;
-    }
-
+    /**
+     * Opens a success snackbar with a custom message.
+     * @param message The message to display in the snackbar.
+     */
     public openSuccess(message: string): void {
-        this._snackBar.open(message, 'OK', {
+        this.snackBar.open(message, 'OK', {
             duration: 3000,
             panelClass: ['snackbar-success']
+        });
+    }
+
+    /**
+     * Opens an error snackbar with a custom message.
+     * @param message The message to display in the snackbar.
+     * @param duration The duration for which the snackbar is displayed. Default is 3000 ms.
+     */
+    public showError(message: string, duration: number = 3000): void {
+        this.snackBar.open(message, 'Close', {
+            duration: duration,
+            panelClass: ['snackbar-error']
         });
     }
 }

@@ -8,12 +8,14 @@ import { ApiEndpoints } from "src/app/utilities/constants/common/api-endpoints.c
     providedIn: 'root'
 })
 export class NomenclaturesService extends BaseService {
-    
+
+    /**
+     * Retrieves a list of users from the nomenclatures endpoint.
+     * @returns An observable of Nomenclature array containing user data.
+     */
     public getUsers(): Observable<Nomenclature<string>[]> {
-        const result = this.http.get<Nomenclature<string>[]>(
+        return this.http.get<Nomenclature<string>[]>(
             `${ApiEndpoints.base}${ApiEndpoints.nomenclatures.users}`
         );
-
-        return result;
     }
 }
