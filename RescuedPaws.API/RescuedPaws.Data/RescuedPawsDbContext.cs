@@ -11,8 +11,11 @@ namespace RescuedPaws.Data
     public class RescuedPawsDbContext : IdentityDbContext<User, Role, string>
     {
         private bool _showOnlyActive = true;
-        public RescuedPawsDbContext(DbContextOptions<RescuedPawsDbContext> options) : base(options)
-        { }
+        private readonly AuditingInterceptor _auditingInterceptor;
+        public RescuedPawsDbContext(DbContextOptions<RescuedPawsDbContext> options, AuditingInterceptor auditingInterceptor) : base(options)
+        {
+            this._auditingInterceptor = auditingInterceptor;
+        }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<AnimalData> AnimalData { get; set; }
@@ -36,7 +39,8 @@ namespace RescuedPaws.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.AddInterceptors(new AuditingInterceptor());
+            optionsBuilder.AddInterceptors(this._auditingInterceptor);
+            base.OnConfiguring(optionsBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))

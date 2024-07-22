@@ -18,7 +18,7 @@ namespace RescuedPaws.Core.Services.Common
     public abstract class BaseService
     {
         protected readonly RescuedPawsDbContext _dbContext;
-        private readonly ILogger<BaseService> _logger;
+        protected readonly ILogger<BaseService> _logger;
 
         protected BaseService(RescuedPawsDbContext dbContext, ILogger<BaseService> logger)
         {
@@ -35,7 +35,7 @@ namespace RescuedPaws.Core.Services.Common
 
         public async Task<bool> SoftDeleteAsync<T>(Guid id) where T : class, ISoftDeletableEntity, IEntity
         {
-            
+
             try
             {
                 var entity = await _dbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);

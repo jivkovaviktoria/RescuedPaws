@@ -10,6 +10,7 @@ import { BaseComponent } from '../../shared/base/base.component';
 import { RpDialogComponent } from '../../shared/rp-controls/rp-dialog/rp-dialog.component';
 import { ViewAnimalSizeComponent } from './view-animal-size/view-animal-size.component';
 import { RpTranslateService } from 'src/app/services/rp-translate.service';
+import { Action } from 'src/app/utilities/enums/actions.enum';
 
 @Component({
   selector: 'animal-sizes',
@@ -84,7 +85,7 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
       data: {
         component: ViewAnimalSizeComponent,
         title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.view')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
-        isReadonly: true
+        mode: Action.View
       }
     });
   }
@@ -102,7 +103,7 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
       data: {
         component: ViewAnimalSizeComponent,
         title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.edit')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
-        isReadonly: false,
+        mode: Action.Edit,
       }
     });
   }
@@ -119,7 +120,7 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
       data: {
         component: ViewAnimalSizeComponent,
         title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.add')} ${this.translateService.getTranslation('common', this.selectedLanguage, 'entities.animalSize')}`,
-        isReadonly: false,
+        mode: Action.Add,
       }
     });
   }
@@ -135,7 +136,7 @@ export class AnimalSizesComponent extends BaseComponent implements OnInit {
       panelClass: 'delete-dialog',
       data: {
         title: `${this.translateService.getTranslation('common', this.selectedLanguage, 'messages.delete-confirmation').replace("{0}", event['name'])}`,
-        isReadonly: false,
+        mode: Action.Delete,
         saveButtonText: `${this.translateService.getTranslation('common', this.selectedLanguage, 'actions.delete')}`,
       }
     });

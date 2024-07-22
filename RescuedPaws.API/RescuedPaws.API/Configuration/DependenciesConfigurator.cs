@@ -4,6 +4,7 @@ using RescuedPaws.Core.Services.Common;
 using RescuedPaws.Core.Contracts.Common;
 using RescuedPaws.Core.Contracts.Administration;
 using RescuedPaws.Core.Services.Administration;
+using RescuedPaws.Data.Configuration.Interceptors;
 
 namespace RescuedPaws.API.Configuration
 {
@@ -31,6 +32,8 @@ namespace RescuedPaws.API.Configuration
         /// <param name="builder">The WebApplicationBuilder instance used to configure the application's services.</param>
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<AuditingInterceptor>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IUsersService, UsersService>();
             builder.Services.AddScoped<IRolesService, RolesService>();

@@ -20,9 +20,7 @@ namespace RescuedPaws.API.ActionFilters
                 {
                     // Set the query tracking behavior to NoTracking for performance reasons
                     dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
-                    // If there is a method to disable a soft delete filter, call it
-                    dbContext.DisableSoftDeleteFilter(); // Make sure such a method exists and is correctly implemented
+                    dbContext.DisableSoftDeleteFilter();
                 }
             }
         }

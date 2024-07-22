@@ -4,6 +4,7 @@ import { DialogService } from 'src/app/services/common/dialog.service';
 import { RpTranslateService } from 'src/app/services/rp-translate.service';
 import { BaseComponent } from '../../base/base.component';
 import { LanguageService } from 'src/app/services/language.service';
+import { Action } from 'src/app/utilities/enums/actions.enum';
 
 @Component({
   selector: 'rp-dialog',
@@ -13,10 +14,12 @@ import { LanguageService } from 'src/app/services/language.service';
 export class RpDialogComponent extends BaseComponent {
   protected title!: string;
 
-  @Input() public cancelButtonText: string = 'Cancel';
-  @Input() public saveButtonText: string = 'Save';
+  @Input() public cancelButtonText: Action = Action.Cancel;
+  @Input() public saveButtonText: Action = Action.Save;
+  @Input() public mode: Action | undefined = undefined;
 
   @Output() public onSave: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public onDelete: EventEmitter<any> = new EventEmitter<any>();
 
   protected _dialogService: DialogService;
   protected _translateService: RpTranslateService;
@@ -41,8 +44,40 @@ export class RpDialogComponent extends BaseComponent {
     this._translateService = translateService;
 
     this.title = data.title;
+
+    if (data.mode) this.mode = data.mode;
     if (data.saveButtonText) this.saveButtonText = data.saveButtonText;
     if (data.cancelButtonText) this.cancelButtonText = data.cancelButtonText;
+  }
+
+  /** 
+   * Determines if the dialog is in view mode.
+  */
+  public isViewMode(): boolean {
+    return this.mode === Action.View;
+  }
+
+  /**
+   * Determines if the dialog is in edit or add mode.
+   */
+  public isEditMode(): boolean {
+    return this.mode === Action.Edit;
+  }
+
+  /**
+   * Determines if the dialog is in delete mode.
+   */
+  public isDeleteMode(): boolean {
+    return this.mode === Action.Delete;
+  }
+
+  /**
+   * Determines if the dialog is in add mode.
+   */
+  public isAddMode(): boolean {
+    console.log(this.mode);
+    
+    return this.mode === Action.Add;
   }
 
   /**
@@ -58,6 +93,15 @@ export class RpDialogComponent extends BaseComponent {
   protected onSaveClick(): void {
     this.onSave.emit();
     this._dialogService.save();
+    this.dialogRef.close();
+  }
+
+  /**
+   * Emits the delete event and closes the dialog.
+   */
+  protected onDeleteClick(): void {
+    this.onDelete.emit();
+    this._dialogService.delete();
     this.dialogRef.close();
   }
 }

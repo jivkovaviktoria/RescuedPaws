@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RescuedPaws.Core.Enums
 {
+    /// <summary>
+    /// Enum representing various application routes.
+    /// </summary>
     internal enum RpRoutes
     {
         ADOPT,

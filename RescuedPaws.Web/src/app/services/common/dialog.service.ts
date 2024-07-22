@@ -7,6 +7,7 @@ export class DialogService {
   private modelData: any;
 
   @Output() public onSave: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public onDelete: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Sets the model data.
@@ -29,6 +30,10 @@ export class DialogService {
    */
   public save(): void {
     this.onSave.emit();
+  }
+
+  public delete(): void {
+    this.onDelete.emit();
   }
 
   /**

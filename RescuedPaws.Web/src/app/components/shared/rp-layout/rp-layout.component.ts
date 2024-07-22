@@ -22,7 +22,7 @@ export class RpLayoutComponent implements OnInit {
   @ViewChild(RpSidebarComponent) public sidebar!: RpSidebarComponent;
 
   protected languageService: LanguageService;
-  protected authService: AuthenticationService;
+  protected authenticationService: AuthenticationService;
   protected translateService: RpTranslateService;
   protected dialog: MatDialog;
 
@@ -35,12 +35,12 @@ export class RpLayoutComponent implements OnInit {
    */
   constructor(
     languageService: LanguageService,
-    authService: AuthenticationService,
+    authenticationService: AuthenticationService,
     translateService: RpTranslateService,
     dialog: MatDialog
   ) {
     this.languageService = languageService;
-    this.authService = authService;
+    this.authenticationService = authenticationService;
     this.translateService = translateService;
     this.dialog = dialog;
   }
@@ -70,14 +70,14 @@ export class RpLayoutComponent implements OnInit {
    * @returns True if the user is logged in, otherwise false.
    */
   public isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
+    return this.authenticationService.isLoggedIn();
   }
 
   /**
    * Logs out the user.
    */
   public logout(): void {
-    this.authService.logout();
+    this.authenticationService.logout();
   }
 
   /**
@@ -102,5 +102,13 @@ export class RpLayoutComponent implements OnInit {
         isReadonly: false
       }
     });
+  }
+
+  /**
+   * Checks if the user is authenticated.
+   * @returns True if the user is authenticated, otherwise false.
+   */
+  public isAuthenticated(): boolean {
+    return this.authenticationService.isLoggedIn();
   }
 }
